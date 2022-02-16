@@ -9,69 +9,68 @@
 	masturbation_verb 		= "stroke"
 	can_climax 				= TRUE
 	fluid_transfer_factor	= 0.5
-	size 					= 2 //arbitrary value derived from length and girth for sprites.
-	var/condom				= 0 //No condom, its better this way...
-	var/sounding			= 0
-	var/length 				= 6	//inches
-	var/cached_length			//used to detect a change in length
+	size 					= 2
+	var/condom				= FALSE 
+	var/sounding			= FALSE
+	var/length 				= 6	
+	var/cached_length			
 	var/girth  				= 3.38
-	var/girth_ratio 		= COCK_GIRTH_RATIO_DEF //0.73; check citadel_defines.dm
+	var/girth_ratio 		= COCK_GIRTH_RATIO_DEF
 	var/knot_girth_ratio 	= KNOT_GIRTH_RATIO_DEF
 	var/list/dickflags 		= list()
 	var/list/knotted_types 	= list("knotted", "barbed, knotted")
-	var/prev_length			= 6 //really should be renamed to prev_length
+	var/prev_length			= 6
 
 /obj/item/organ/genital/penis/Initialize()
 	. = ..()
 	/* I hate genitals.*/
 
 /obj/item/organ/genital/penis/update_size()
-	var/mob/living/carbon/human/o = owner
-	if(!ishuman(o) || !o)
+	if(!ishuman(owner) || !owner)
 		return
 	if(cached_length < 0)//I don't actually know what round() does to negative numbers, so to be safe!!
-		var/obj/item/organ/genital/penis/P = o.getorganslot("penis")
-		to_chat(o, "<span class='warning'>You feel your tallywacker shrinking away from your body as your groin flattens out!</b></span>")
-		P.Remove(o)
+		var/obj/item/organ/genital/penis/P = owner.getorganslot("penis")
+		to_chat(owner, "<span class='warning'>You feel your tallywacker shrinking away from your body as your groin flattens out!</b></span>")
+		P.Remove(owner)
 	if(girth_ratio == null)
 		girth_ratio = COCK_GIRTH_RATIO_DEF
-		o.update_genitals()
+		owner.update_genitals()
 	switch(round(cached_length))
 		if(0 to 4) //If modest size
 			length = cached_length
 			size = 1
 			if(owner.has_status_effect(/datum/status_effect/chem/penis_enlarger))
-				o.remove_status_effect(/datum/status_effect/chem/penis_enlarger)
+				owner.remove_status_effect(/datum/status_effect/chem/penis_enlarger)
 		if(5 to 10) //If modest size
 			length = cached_length
 			size = 2
 			if(owner.has_status_effect(/datum/status_effect/chem/penis_enlarger))
-				o.remove_status_effect(/datum/status_effect/chem/penis_enlarger)
+				owner.remove_status_effect(/datum/status_effect/chem/penis_enlarger)
 		if(11 to 18) //If massive
 			length = cached_length
 			size = 3
 			if(owner.has_status_effect(/datum/status_effect/chem/penis_enlarger))
-				o.remove_status_effect(/datum/status_effect/chem/penis_enlarger)
+				owner.remove_status_effect(/datum/status_effect/chem/penis_enlarger)
 		if(18 to 26) //If massive and due for large effects
 			length = cached_length
 			size = 3
 			if(!owner.has_status_effect(/datum/status_effect/chem/penis_enlarger))
-				o.apply_status_effect(/datum/status_effect/chem/penis_enlarger)
+				owner.apply_status_effect(/datum/status_effect/chem/penis_enlarger)
 		if(26 to 34) //If hyper
 			length = cached_length
 			size = 4 //no new sprites for anything larger yet
 			if(!owner.has_status_effect(/datum/status_effect/chem/penis_enlarger))
-				o.apply_status_effect(/datum/status_effect/chem/penis_enlarger)
+				owner.apply_status_effect(/datum/status_effect/chem/penis_enlarger)
 		if(34 to INFINITY) //If extreme-hyper
 			length = cached_length
 			size = 5 //no new sprites for anything larger yet
 			if(!owner.has_status_effect(/datum/status_effect/chem/penis_enlarger))
-				o.apply_status_effect(/datum/status_effect/chem/penis_enlarger)
+				owner.apply_status_effect(/datum/status_effect/chem/penis_enlarger)
 
 	if (round(length) > round(prev_length))
-		to_chat(o, "<span class='warning'>Your [pick(GLOB.gentlemans_organ_names)] [pick("swells up to", "flourishes into", "expands into", "bursts forth into", "grows eagerly into", "amplifys into")] a [uppertext(round(length))] inch penis.</b></span>")
+		to_chat(owner, "<span class='warning'>Your [pick(GLOB.gentlemans_organ_names)] [pick("swells up to", "flourishes into", "expands into", "bursts forth into", "grows eagerly into", "amplifys into")] a [uppertext(round(length))] inch penis.</b></span>")
 	else if ((round(length) < round(prev_length)) && (length > 0.5))
-		to_chat(o, "<span class='warning'>Your [pick(GLOB.gentlemans_organ_names)] [pick("shrinks down to", "decreases into", "diminishes into", "deflates into", "shrivels regretfully into", "contracts into")] a [uppertext(round(length))] inch penis.</b></span>")
+		to_chat(owner, "<span class='warning'>Your [pick(GLOB.gentlemans_organ_names)] [pick("shrinks down to", "decreases into", "diminishes into", "deflates into", "shrivels regretfully into", "contracts into")] a [uppertext(round(length))] inch penis.</b></span>")
 	prev_length = length
 	icon_state = sanitize_text("penis_[shape]_[size]")
 	girth = (length * girth_ratio)//Is it just me or is this ludicous, why not make it exponentially decay?

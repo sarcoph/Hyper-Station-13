@@ -2,8 +2,6 @@
 	color = "#fcccb3"
 	w_class 					= WEIGHT_CLASS_NORMAL
 	var/shape					= "Human" //Changed to be uppercase, let me know if this breaks everything..!!
-	var/sensitivity				= AROUSAL_START_VALUE
-	var/list/genital_flags		= list()
 	var/can_masturbate_with 	= FALSE
 	var/masturbation_verb		= "masturbate"
 	var/can_climax				= FALSE
