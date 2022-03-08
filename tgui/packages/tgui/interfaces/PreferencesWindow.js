@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from "../backend";
-import { Section, Tabs } from "../components";
+import { Box, Button, Divider, Dropdown, Flex, Icon, LabeledList, Modal, NumberInput, Section, Tabs } from "../components";
 import { Window } from "../layouts";
 
 export const PreferencesWindow = (props, context) => {
@@ -33,38 +33,32 @@ const PreferencesTabs = (props, context) => {
     <Tabs>
       <Tabs.Tab
         selected={tab===0}
-        onClick={() => setTab(0)}
-        color="teal">
+        onClick={() => setTab(0)}>
         Character Info
       </Tabs.Tab>
       <Tabs.Tab
         selected={tab===1}
-        onClick={() => setTab(1)}
-        color="teal">
+        onClick={() => setTab(1)}>
         Appearance
       </Tabs.Tab>
       <Tabs.Tab
         selected={tab===2}
-        onClick={() => setTab(2)}
-        color="teal">
+        onClick={() => setTab(2)}>
         Loadout
       </Tabs.Tab>
       <Tabs.Tab
         selected={tab===3}
-        onClick={() => setTab(3)}
-        color="red">
+        onClick={() => setTab(3)}>
         Game Preferences
       </Tabs.Tab>
       <Tabs.Tab
         selected={tab===4}
-        onClick={() => setTab(4)}
-        color="red">
+        onClick={() => setTab(4)}>
         Antagonist Preferences
       </Tabs.Tab>
       <Tabs.Tab
         selected={tab===5}
-        onClick={() => setTab(5)}
-        color="red">
+        onClick={() => setTab(5)}>
         Content Preferences
       </Tabs.Tab>
     </Tabs>
@@ -72,12 +66,60 @@ const PreferencesTabs = (props, context) => {
 };
 
 const CharacterInfoPage = (props, context) => {
+  const [nameModalOpen, setNameModalOpen] = useLocalState(context, 'nameModalOpen', false);
+
   return (
-    <Section title="Character Info">
-      Hello World! 1 Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-      Quisquam temporibus modi beatae deserunt, harum. Animi aliquid, iure error
-      autem eveniet magni doloremque, id rem facilis odio impedit nam eum aliquam.
-    </Section>
+    <>
+      <Section title="Character Info">
+        <LabeledList>
+          <LabeledList.Item label="Name">
+            <Button.Input content="AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" maxLength={42} /> 
+            <Button icon="dice-five" tooltip="Always Randomize Name" color="grey" />
+            <Button icon="user-slash" tooltip="Toggle Nameless" color="grey" />
+            <Button icon="ellipsis-h" tooltip="Alternate Names" onClick={() => setNameModalOpen(true)} />
+          </LabeledList.Item>
+          <LabeledList.Item label="Age">
+            <NumberInput value={45} minValue={21} maxValue={85} unit="years" />
+          </LabeledList.Item>
+          <LabeledList.Item label="Body Style">
+            <Dropdown options={['male', 'female']} selected="masculine" />
+          </LabeledList.Item>
+          <LabeledList.Item label="Pronouns">
+            <Dropdown 
+              width="15em"
+              options={['(same as body style)', 'male', 'female', 'nonbinary', 'object']} 
+              selected="(same as body style)" />
+          </LabeledList.Item>
+          <LabeledList.Item label="Species">
+            <Dropdown options={['human']} selected={'human'} />
+          </LabeledList.Item>
+          <LabeledList.Item label="Custom species">
+            <Button.Input content="(no custom name)" />  
+          </LabeledList.Item>
+        </LabeledList>
+      </Section>
+    
+      {nameModalOpen && <AltNamesModal />}
+    </>
+  );
+};
+
+const AltNamesModal = (props, context) => {
+  const [nameModalOpen, setNameModalOpen] = useLocalState(context, 'nameModalOpen', false);
+
+  return (
+    <Modal width={30}>
+      <Box>
+        <Section title={(
+          <Flex justify="space-between">
+            <Flex.Item>Alternate Names</Flex.Item>
+            <Flex.Item><Button onClick={() => setNameModalOpen(false)} icon="times" color="red" /></Flex.Item>
+          </Flex>
+        )}>
+          Hello World!
+        </Section>
+      </Box>
+    </Modal>
   );
 };
 
