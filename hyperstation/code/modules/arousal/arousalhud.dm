@@ -359,6 +359,11 @@ obj/screen/arousal/proc/kiss()
 						"<span class='notice'>You kiss something!</span>")
 
 
+/mob/living/carbon/proc/attempt_climax(threshold=100)
+	var/mob/living/carbon/human/H = src
+	if (H.getArousalLoss() >= threshold && ishuman(H) && H.has_dna())
+		mob_climax(forced_climax=TRUE) //make them cum if they are over the edge.
+
 /mob/living/carbon/human/proc/climaxalone()
 	//we dont need hands to climax alone, its hands free!
 	var/obj/item/organ/genital/picked_organ

@@ -3204,6 +3204,7 @@
 #include "hyperstation\code\obj\fluff.dm"
 #include "hyperstation\code\obj\kinkyclothes.dm"
 #include "hyperstation\code\obj\leash.dm"
+#include "hyperstation\code\obj\lewdoo.dm"
 #include "hyperstation\code\obj\lunaritems.dm"
 #include "hyperstation\code\obj\milking machine.dm"
 #include "hyperstation\code\obj\plushes.dm"

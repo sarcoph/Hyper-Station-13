@@ -2,6 +2,7 @@
 	var/total_pain = 0
 	var/pain_effect = 0
 	var/pain_cooldown = 0 //for defibs/surgry!
+	var/max_pain = 110
 
 //pain
 /mob/living/carbon/adjustPainLoss(amount, updating_health = TRUE, forced = FALSE, affected_zone = BODY_ZONE_CHEST)
@@ -97,7 +98,7 @@
 				stuttering += 3	 //stutter words
 
 	//if they are asleep, this wont trigger.
-	if (total_pain > 110 && stat == 0) //taking 77 all damage at once from full health, will put you into shock and kill you. This cant be achived with chip damage (or fist fights), because youll die before you reach this pain level.
+	if (total_pain > max_pain && stat == 0) //taking 77 all damage at once from full health, will put you into shock and kill you. This cant be achived with chip damage (or fist fights), because youll die before you reach this pain level.
 		if(prob(50))
 			emote("scream")//scream
 		to_chat(src, "<span class='big warning'>You give into the pain...</span>")
