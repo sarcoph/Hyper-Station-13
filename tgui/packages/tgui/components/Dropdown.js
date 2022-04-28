@@ -41,7 +41,7 @@ export class Dropdown extends Component {
   }
 
   buildMenu() {
-    const { options = [] } = this.props;
+    const { options = [], width } = this.props;
     const ops = options.map(option => (
       <div
         key={option}

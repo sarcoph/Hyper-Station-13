@@ -1,0 +1,35 @@
+@use '../base.scss';
+@use '../colors.scss';
+@use '../functions.scss' as *;
+
+
+.LewdooDoll__ColorButton {
+	$border-size: 3px;
+
+	box-sizing: border-box;
+	border: $border-size solid;
+	line-height: 20px - $border-size*2;	
+	padding: 0 (6px - $border-size);
+}
+
+.LewdooDoll__Flex {
+	height: 100%;
+	align-items: stretch;
+	align-content: stretch;
+
+	& > .Flex__item {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		align-content: stretch;
+	}
+}
+
+.LewdooDoll__Section {
+	flex-grow: 1;
+}
+
+.LewdooDoll__Interaction {
+	margin-right: 5px;
+}

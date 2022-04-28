@@ -3151,6 +3151,7 @@
 #include "hyperstation\code\modules\cargo\sweatshop\metal.dm"
 #include "hyperstation\code\modules\cargo\sweatshop\sweatshop.dm"
 #include "hyperstation\code\modules\cargo\sweatshop\wooden.dm"
+#include "hyperstation\code\modules\client\loadout\backpack.dm"
 #include "hyperstation\code\modules\client\loadout\glasses.dm"
 #include "hyperstation\code\modules\client\loadout\gloves.dm"
 #include "hyperstation\code\modules\client\loadout\neck.dm"

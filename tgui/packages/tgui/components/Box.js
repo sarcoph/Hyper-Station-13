@@ -124,6 +124,7 @@ const styleMapperByPropName = {
   // Color props
   color: mapColorPropTo('color'),
   textColor: mapColorPropTo('color'),
+  borderColor: mapColorPropTo('border-color'),
   backgroundColor: mapColorPropTo('background-color'),
   // Utility props
   fillPositionedParent: (style, value) => {

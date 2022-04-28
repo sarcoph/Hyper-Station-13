@@ -8,6 +8,10 @@ GLOBAL_LIST_INIT(lewdoo_species, list(
 	"lizard", "fish", "rabbit"
 ))
 
+#define LEWDOO_COLOR_PRIMARY "Primary"
+#define LEWDOO_COLOR_SECONDARY "Secondary"
+#define LEWDOO_COLOR_EYES "Eye"
+
 /obj/item/lewdoo
 	name = "lewdoo doll"
 	desc = "A doll capable of inflicting sensation on a chosen target. However, this one seems more geared for pleasure..."
@@ -43,21 +47,23 @@ GLOBAL_LIST_INIT(lewdoo_species, list(
 	. = ..()
 	var/list/species = GLOB.lewdoo_species
 	doll_style = pick(species)
-	primary_color = "#" + random_color()
-	secondary_color = "#" + random_color()
-	eye_color = "#" + random_color()
+	SetColor(LEWDOO_COLOR_PRIMARY, "#ffffff")
+	SetColor(LEWDOO_COLOR_SECONDARY, "#" + random_color())
+	SetColor(LEWDOO_COLOR_EYES, "#" + random_color())
 	InitializeInteractions()
-	update_icon()
 
 /obj/item/lewdoo/update_icon()
 	. = ..()
 	icon_state = "[doll_style]_base"
-	color = primary_color
 	update_overlays()
 
 /obj/item/lewdoo/update_overlays()
 	. = ..()
 	cut_overlays()
+	var/image/_visible_body = image(
+		icon = icon,
+		icon_state = icon_state)
+	_visible_body.color = primary_color
 	var/image/_extra_parts = image(
 		icon = icon, 
 		icon_state = "[doll_style]_secondary")
@@ -66,12 +72,10 @@ GLOBAL_LIST_INIT(lewdoo_species, list(
 		icon = icon, 
 		icon_state = "eyes")
 	_eyes.color = eye_color
-	add_overlay(list(_extra_parts, _eyes))
+	add_overlay(list(_visible_body, _extra_parts, _eyes))
 
 /obj/item/lewdoo/attackby(obj/item/I, mob/living/user, params)
 	. = ..()
-	if (target && cooldown < world.time)
-		return Interact(user, I)
 	AttachItem(I, user)
 
 /*
@@ -80,7 +84,109 @@ TGUI:
 Literally just the TGUI part of this
 Allows players to interact with the doll and choose targets.
 */
+/obj/item/lewdoo/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/tgui_state/state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "LewdooDoll", name, 500, 400, master_ui, state)
+		ui.open()
+	
+/obj/item/lewdoo/ui_act(action, params)
+	if(..())
+		return
+	if(!src.loc == usr)
+		return
+	switch(action)
+		if("interact")
+			var/list/interaction = params["action"] || null
+			Interact(usr, interaction)
+		if("switch_intent")
+			var/intent = params["intent"]
+			usr.a_intent_change(intent)
+		if("switch_zone")
+			var/zone = params["zone"]
+			var/obj/screen/zone_sel/selector = usr.hud_used.zone_select
+			selector.set_selected_zone(zone_select, usr)
+		if("change_color")
+			var/color_name = params["color"]
+			var/description = "Change the [lowertext(color_name)] color of the lewdoo doll"
+			var/_input = input(usr, description, "Lewdoo Doll", primary_color) as color|null
+			SetColor(color_name, _input)
+		if("change_style")
+			var/style = params["style"]
+			doll_style = style
+			update_icon()
+		if("eject_item")
+			DetachItem(usr)
+		if("remove_target")
+			RemoveTarget(usr)
+		if("prompt_target")
+			var/target = params["target"]
+			if(target == "(none)") return TRUE
+			for(var/mob/living/carbon/human/poss in possible_targets)
+				if(poss.name == target)
+					SelectTarget(usr, poss)
+		if("sync_colors_to_target")
+			SyncColorsToTarget()
+	return TRUE
 
+/obj/item/lewdoo/ui_data(mob/user)
+	var/list/data = list()
+	var/valid = src.loc == target || src.loc == holder
+	var/mob/living/carbon/human/_holder = valid ? src.loc : null
+	data["possibleTargets"] = possible_targets
+	data["validLocation"] = valid
+	data["intent"] = _holder ? _holder.a_intent : null
+	data["zone"] = _holder ? _holder.zone_selected : null
+	data["heldItem"] = user.get_active_held_item()
+	data["target"] = target
+	data["holder"] = holder
+	data["activeStyle"] = doll_style
+	data["colors"] = list(
+		LEWDOO_COLOR_PRIMARY = primary_color, 
+		LEWDOO_COLOR_SECONDARY = secondary_color, 
+		LEWDOO_COLOR_EYES = eye_color)
+	return data
+	
+/obj/item/lewdoo/ui_static_data(mob/user)
+	var/list/data = list()
+	data["interactions"] = interactions
+	data["dollStyles"] = GLOB.lewdoo_species
+	return data
+
+/* 
+CUSTOMIZATION:
+
+change colors and doll style
+todo: accessories?
+*/
+
+/obj/item/lewdoo/proc/SyncColorsToTarget()
+	if(!target) 
+		return
+	var/datum/dna/_dna = target.dna
+	var/datum/species/_species = _dna.species
+	var/list/_features = _dna.features
+	var/list/_traits = _species.species_traits
+	SetColor(LEWDOO_COLOR_PRIMARY, skintone2hex(target.skin_tone))
+	SetColor(LEWDOO_COLOR_EYES, hex3tohex6(target.eye_color))
+	if(_traits.Find(MUTCOLORS))
+		SetColor(LEWDOO_COLOR_PRIMARY, hex3tohex6(_features["mcolor"]))
+		SetColor(LEWDOO_COLOR_SECONDARY, hex3tohex6(_features["mcolor2"]))
+
+/obj/item/lewdoo/proc/hex3tohex6(hex3)
+	var/_color = ReadRGB(hex3)
+	return rgb(_color[1], _color[2], _color[3])
+
+/obj/item/lewdoo/proc/SetColor(color, value)
+	if(!value) return
+	switch(color)
+		if(LEWDOO_COLOR_PRIMARY) 
+			primary_color = value
+		if(LEWDOO_COLOR_SECONDARY) 
+			secondary_color = value
+		if(LEWDOO_COLOR_EYES) 
+			eye_color = value
+	update_icon()
 
 /*
 ITEM LINKING:
@@ -121,25 +227,23 @@ lewdoo doll for it to work, similar to the hypnosis items.
 /obj/item/lewdoo/proc/SelectTarget(mob/living/carbon/user, mob/living/carbon/human/selected)
 	RemoveTarget()
 	if(!length(possible_targets || !selected)) return
-	var/_consent = selected == user ? TRUE : GetTargetConsent(selected)
-	if(_consent == TRUE)
+	var/_consent = selected == user ? "Yes" : GetTargetConsent(selected)
+	world.log << _consent
+	if(_consent == "Yes" && !target)
 		target = selected
 		holder = user
 		log_game("[key_name(user)] linked [key_name(target)] to a lewdoo doll.")
-		to_chat(user, "<span class='notice'>You feel \the [src] grow weightier as it successfully links with [selected].</span>")
 		to_chat(target, "<span class='warning'>You feel as if an unseen force is now tugging at your being...</span>")
+		to_chat(user, "<span class='notice'>You feel \the [src] grow weightier as it successfully links with [selected].</span>")
 	else
+		to_chat(selected, "<span class='warning'>You feel as if your being has rejected an unseen influence...</span>")
 		to_chat(user, "<span class='warning'>You feel as if [selected] has rejected \the [src]'s influence.</span>")
-		to_chat(target, "<span class='warning'>You feel as if your being has rejected an unseen influence...</span>")
 
 /obj/item/lewdoo/proc/GetTargetConsent(mob/living/carbon/human/target)
-	var/_consent_time_max = world.time + 1 MINUTES
-	var/_consent = alert(target, "Someone is attempting to link you to a lewdoo doll."\
-		+ " Allow this player to anonymously interact with yours in lewd ways?", "Lewdoo Doll", "Yes", "No")
-	if(_consent == "Yes" && world.time < _consent_time_max && !target)
-		return TRUE
-	else
-		return FALSE
+	var/consent_message = "Someone is attempting to link you to a lewdoo doll."
+	consent_message += " Allow this player to anonymously interact with yours in lewd ways?"
+	var/_consent = alert(target, consent_message, "Lewdoo Doll", "Yes", "No")
+	return _consent
 
 
 /*
@@ -152,17 +256,12 @@ Ensure that interactions are NOT griefy or abusable. Damaging interactions shoul
 be kept within the threshold! Non-masochists should not receive pain, for the
 sake of preferences.
 */
-/obj/item/lewdoo/proc/Interact(mob/living/carbon/user, obj/item/I)
-	if(!target) return
+/obj/item/lewdoo/proc/Interact(mob/living/carbon/user, list/action)
+	if(!target || !action) return
 	if(user != holder && user != target) return
-	var/intent = user.a_intent
-	var/holder_lewd = GetLewdSettings(user)
-	var/target_lewd = GetLewdSettings(target)
-	var/_action = GetInteraction(intent, I, holder_lewd, target_lewd, user)
-	if(!_action) return
-	ReplaceActionTerms(_action, user, I)
-	SendActionMessages(_action, user)
-	DoActionEffects(_action, user)
+	ReplaceActionTerms(action, user, usr.get_active_held_item())
+	SendActionMessages(action, user)
+	DoActionEffects(action, user)
 
 /obj/item/lewdoo/proc/DoActionEffects(var/list/_action, mob/living/carbon/user)
 	var/zone = user.zone_selected
@@ -215,36 +314,6 @@ sake of preferences.
 		for(var/term in replace_terms) 
 			_action[text] = replacetext(_action[text], term, replace_terms[term])
 
-/obj/item/lewdoo/proc/GetInteraction(intent, obj/item/I, list/holder_lewd, list/target_lewd, mob/living/carbon/user)
-	var/zone = user.zone_selected
-	var/_intentacts = interactions[intent]
-	var/_partacts = _intentacts[zone] | _intentacts["default"]
-	for(var/action in _partacts)
-		var/_trait = action["trait"]
-		var/_item = action["item"]
-		var/_genital = action["genital"]
-		if(_trait && !HAS_TRAIT(target, _trait)) 
-			continue
-		if(_item)
-			if(!istype(I)) continue
-			if(istype(_item, /obj/item) && !istype(I, _item)) continue
-			if(istext(_item))
-				switch(_item)
-					if("is_hot")
-						if(!I.is_hot()) continue
-					if("is_pointed")
-						if(!is_pointed(I)) continue
-					if("is_sharp")
-						if(!I.is_sharp()) continue
-		if(action["noncon"])
-			if(!holder_lewd["noncon"] || !target_lewd["noncon"])
-				continue
-		if(_genital && !holder_lewd[_genital])
-			continue
-		return action
-	log_message("[key_name(user)] + [key_name(target)] could not get action for [intent]+[zone]")
-	return null
-
 /obj/item/lewdoo/proc/CheckVisibility(var/genital, mob/living/carbon/user)
 	var/obj/item/organ/genital/_organ = user.getorganslot(genital)
 	var/_exposed = _organ&&_organ.is_exposed() ? TRUE : FALSE
@@ -288,77 +357,81 @@ interactions
 	interactions = list(
 		INTENT_HELP = list(
 			BODY_ZONE_HEAD = list(
-				list(
+				"test" = list(list(
 					"holder_text" = "Hello World",
 					"self_text" = "Foo",
 					"visible_text" = "Bar"
-				)
+				))
 			)
 		),
 		INTENT_GRAB = list(
 			BODY_ZONE_HEAD = list(
-				list(
+				"test" = list(list(
 					"holder_text" = "Hello World",
 					"self_text" = "Foo",
 					"visible_text" = "Bar"
-				)
+				))
 			)
 		),
 		INTENT_DISARM = list(
 			BODY_ZONE_HEAD = list(
-				list(
-					"trait" = TRAIT_HEADPAT_SLUT,
-					"holder_text" = "notice:You give %doll% a little headpat.",
-					"self_text" = "notice:You feel an unseen force patting you on the head!!",
-					"visible_text" = "%target% suddenly seems excited.", 
-					"pleasure_gain" = 5,
-					"mood_event" = list(
-						"name" = "lewd_headpat", 
-						"event" = /datum/mood_event/lewd_headpat)
-				),
-				list(
-					"trait" = TRAIT_DISTANT,
-					"holder_text" = "notice:You give %doll% a little headpat.",
-					"self_text" = "warning:You swat at an unseen force patting you on the head.",
-					"visible_text" = "%target% swats at the air above %target.their% head.",
-					"pleasure_gain" = -5
-				),
-				list(
-					"holder_text" = "notice:You give %doll% a little headpat.",
-					"self_text" = "notice:You feel an unseen force patting you on the head.",
-					"visible_text" = null, 
-					"pleasure_gain" = 0,
-					"mood_event" = list(
-						"name" = "headpat", 
-						"event" = /datum/mood_event/headpat)
+				"headpat" = list(
+					list(
+						"trait" = TRAIT_HEADPAT_SLUT,
+						"holder_text" = "notice:You give %doll% a little headpat.",
+						"self_text" = "notice:You feel an unseen force patting you on the head!!",
+						"visible_text" = "%target% suddenly seems excited.", 
+						"pleasure_gain" = 5,
+						"mood_event" = list(
+							"name" = "lewd_headpat", 
+							"event" = /datum/mood_event/lewd_headpat)
+					),
+					list(
+						"trait" = TRAIT_DISTANT,
+						"holder_text" = "notice:You give %doll% a little headpat.",
+						"self_text" = "warning:You swat at an unseen force patting you on the head.",
+						"visible_text" = "%target% swats at the air above %target.their% head.",
+						"pleasure_gain" = -5
+					),
+					list(
+						"holder_text" = "notice:You give %doll% a little headpat.",
+						"self_text" = "notice:You feel an unseen force patting you on the head.",
+						"visible_text" = null, 
+						"pleasure_gain" = 0,
+						"mood_event" = list(
+							"name" = "headpat", 
+							"event" = /datum/mood_event/headpat)
+					)
 				)
 			)
 		),
 		INTENT_HARM = list(
 			"default" = list(
-				list(
-					"trait" = TRAIT_MASO,
-					"item" = "is_pointed",
-					"holder_text" = "warning:You jab %doll% in the %zone% with the %item%!",
-					"self_text" = "love:You feel an unseen force stab you in the %part%!",
-					"emote" = list(40, "scream"),
-					"pain_gain" = 5,
-					"pleasure_gain" = 5,
-					"can_cum" = TRUE
-				),
-				list(
-					"noncon" = TRUE,
-					"item" = "is_pointed",
-					"holder_text" = "warning:You jab %doll% in the %zone% with the %item%!",
-					"self_text" = "danger:You feel an unseen force stab you in the %part%!",
-					"emote" = list(60, "scream"),
-					"pain_gain" = 5,
-					"pleasure_gain" = -5
-				),
-				list(
-					"item" = "is_pointed",
-					"holder_text" = "warning:You jab %doll% in the %zone% with the %item%!",
-					"self_text" = "notice:You feel an unseen force poke you in the %part%."
+				"jab with point" = list(
+					list(
+						"trait" = TRAIT_MASO,
+						"item" = "is_pointed",
+						"holder_text" = "warning:You jab %doll% in the %zone% with the %item%!",
+						"self_text" = "love:You feel an unseen force stab you in the %part%!",
+						"emote" = list(40, "scream"),
+						"pain_gain" = 5,
+						"pleasure_gain" = 5,
+						"can_cum" = TRUE
+					),
+					list(
+						"noncon" = TRUE,
+						"item" = "is_pointed",
+						"holder_text" = "warning:You jab %doll% in the %zone% with the %item%!",
+						"self_text" = "danger:You feel an unseen force stab you in the %part%!",
+						"emote" = list(60, "scream"),
+						"pain_gain" = 5,
+						"pleasure_gain" = -5
+					),
+					list(
+						"item" = "is_pointed",
+						"holder_text" = "warning:You jab %doll% in the %zone% with the %item%!",
+						"self_text" = "notice:You feel an unseen force poke you in the %part%."
+					)
 				)
 			)
 		)
