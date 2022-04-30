@@ -105,7 +105,7 @@ Allows players to interact with the doll and choose targets.
 		if("switch_zone")
 			var/zone = params["zone"]
 			var/obj/screen/zone_sel/selector = usr.hud_used.zone_select
-			selector.set_selected_zone(zone_select, usr)
+			selector.set_selected_zone(zone, usr)
 		if("change_color")
 			var/color_name = params["color"]
 			var/description = "Change the [lowertext(color_name)] color of the lewdoo doll"
