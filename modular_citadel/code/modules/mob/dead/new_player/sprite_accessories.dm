@@ -1638,10 +1638,12 @@ datum/sprite_accessory/ears/human/gret
 /datum/sprite_accessory/mam_body_markings/cow
 	name = "Bovine"
 	icon_state = "bovine"
+	icon = 'hyperstation/icons/mob/char_markings.dmi'
 
 /datum/sprite_accessory/mam_body_markings/corvid
 	name = "Corvid"
 	icon_state = "corvid"
+	icon = 'hyperstation/icons/mob/char_markings.dmi'
 
 /datum/sprite_accessory/mam_body_markings/dalmation
 	name = "Dalmation"
@@ -1654,6 +1656,7 @@ datum/sprite_accessory/ears/human/gret
 /datum/sprite_accessory/mam_body_markings/dog
 	name = "Dog"
 	icon_state = "dog"
+	icon = 'hyperstation/icons/mob/char_markings.dmi'
 
 
 /datum/sprite_accessory/mam_body_markings/eevee
@@ -1697,6 +1700,7 @@ datum/sprite_accessory/ears/human/gret
 /datum/sprite_accessory/mam_body_markings/hyena
 	name = "Hyena"
 	icon_state = "hyena"
+	icon = 'hyperstation/icons/mob/char_markings.dmi'
 
 /datum/sprite_accessory/mam_body_markings/lab
 	name = "Lab"
@@ -1716,7 +1720,8 @@ datum/sprite_accessory/ears/human/gret
 
 /datum/sprite_accessory/mam_body_markings/panther
 	name = "Panther"
-	icon_state = "panther"
+	icon_state = "spots"
+	icon = 'hyperstation/icons/mob/char_markings.dmi'
 
 /datum/sprite_accessory/mam_body_markings/possum
 	name = "Possum"

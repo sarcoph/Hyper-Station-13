@@ -369,6 +369,24 @@ from modular_citadel/code/modules/mob/dead/new_player/sprite_accessories.dm:
 	icon = 'hyperstation/icons/mob/char_markings.dmi'
 	recommended_species = list("insect")
 
+/datum/sprite_accessory/mam_body_markings/bluejay // sarcoph @ hyperstation, may 2022
+	name = "Bluejay (Hyper)"
+	icon_state = "bluejay"
+	icon = 'hyperstation/icons/mob/char_markings.dmi'
+	recommended_species = list("avian")
+
+/datum/sprite_accessory/mam_body_markings/bluejay_arms // sarcoph @ hyperstation, may 2022
+	name = "Bluejay - Arms (Hyper)"
+	icon_state = "bluejay_arms"
+	icon = 'hyperstation/icons/mob/char_markings.dmi'
+	recommended_species = list("avian")
+
+/datum/sprite_accessory/mam_body_markings/corvid_arms // sarcoph @ hyperstation, may 2022
+	name = "Corvid - Arms (Hyper)"
+	icon_state = "corvid_arms"
+	icon = 'hyperstation/icons/mob/char_markings.dmi'
+	recommended_species = list("avian")
+
 /datum/sprite_accessory/mam_body_markings/moth // sarcoph @ hyperstation, jan 2022
 	name = "Moth (Hyper)"
 	icon_state = "moth"
@@ -392,6 +410,11 @@ from modular_citadel/code/modules/mob/dead/new_player/sprite_accessories.dm:
 	icon_state = "shrike"
 	icon = 'hyperstation/icons/mob/char_markings.dmi'
 	recommended_species = list("avian")
+
+/datum/sprite_accessory/mam_body_markings/spots_uneven // sarcoph @ hyperstation, may 2022
+	name = "Uneven Spots (Hyper)"
+	icon_state = "spots_uneven"
+	icon = 'hyperstation/icons/mob/char_markings.dmi'
 
 /datum/sprite_accessory/mam_body_markings/easterndragon
 	name = "Eastern Dragon (Hyper)"
