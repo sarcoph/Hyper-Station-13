@@ -9,10 +9,10 @@
 
 	var/mob/living/carbon/U = user
 	for(var/obj/item/organ/genital/G in U.internal_organs)
-		if(!G.nochange)
+		if(G.change_visibility)
 			if(!G.dontlist)
 				var/genital_visibility = "[G.name] <font color='green'>(Visible)</font>"
-				switch(G.mode)
+				switch(G.visibility_state)
 					if(GENITALS_HIDDEN)
 						genital_visibility = "[G.name] <font color='red'>(Hidden)</font>"
 					if(GENITALS_CLOTHES)

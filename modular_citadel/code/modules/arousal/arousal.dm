@@ -140,12 +140,7 @@
 					S = GLOB.vagina_shapes_list[genital.shape]
 				if(/obj/item/organ/genital/breasts)
 					S = GLOB.breasts_shapes_list[genital.shape]
-			if(S?.alt_aroused)
-				genital.aroused_state = isPercentAroused(genital.aroused_amount)
-			if(getArousalLoss() >= isPercentAroused(33))
-				genital.aroused_state = TRUE
-			else
-				genital.aroused_state = FALSE
+			genital.aroused_state = isPercentAroused(genital.aroused_threshold)
 			genital.update_appearance()
 
 

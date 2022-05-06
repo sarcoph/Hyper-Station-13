@@ -1,31 +1,37 @@
 /obj/item/organ/genital
 	color = "#fcccb3"
-	w_class 					= WEIGHT_CLASS_NORMAL
-	var/shape					= "Human" //Changed to be uppercase, let me know if this breaks everything..!!
-	var/sensitivity				= AROUSAL_START_VALUE
-	var/list/genital_flags		= list()
-	var/can_masturbate_with 	= FALSE
-	var/masturbation_verb		= "masturbate"
-	var/can_climax				= FALSE
-	var/fluid_transfer_factor	= 0.0 //How much would a partner get in them if they climax using this?
-	var/size					= 2 //can vary between num or text, just used in icon_state strings
-	var/datum/reagent/fluid_id  = null
-	var/fluid_max_volume		= 15
-	var/fluid_efficiency		= 1
-	var/fluid_rate				= 1
-	var/fluid_mult				= 1
-	var/producing				= FALSE
-	var/aroused_state			= FALSE //Boolean used in icon_state strings
-	var/aroused_amount			= 50 //This is a num from 0 to 100 for arousal percentage for when to use arousal state icons.
+	w_class = WEIGHT_CLASS_NORMAL
+	/// The shape of the genital. This shows up in flavor text and sprites.
+	var/shape	= "Human"
+	/// The verb used for masturbation interactions.
+	var/masturbation_verb = "masturbate"
+	/// Size of genitals. This should be a number!
+	var/size = 2
+	/// How much fluid is transferred to a partner upon climaxing.
+	var/fluid_transfer_factor	= 0.0
+	/// The reagent produced and transferred on climax.
+	var/datum/reagent/fluid_id = null
+	/// Maximum amount of fluid this genital can store.
+	var/fluid_max_volume = 15
+	/// The rate at which fluids are generated per second.
+	var/fluid_rate = 1
+	/// A multiplier added to fluid production rate.
+	var/fluid_mult = 1
+	/// Whether or not this genital is "aroused", used for some icon_states.
+	var/aroused_state = FALSE
+	/// The amount of arousal needed for this organ to switch to an aroused state.
+	var/aroused_threshold = 33 //This is a num from 0 to 100 for arousal percentage for when to use arousal state icons.
+	/// A linked genital that this one may draw stats from for certain interactions.
 	var/obj/item/organ/genital/linked_organ
-	var/through_clothes			= FALSE
-	var/internal				= FALSE
-	var/hidden					= FALSE
-	var/colourtint				= ""
-	var/mode					= "clothes"
-	var/obj/item/equipment 		//for fun stuff that goes on the gentials/maybe rings down the line
-	var/dontlist				= FALSE
-	var/nochange				= FALSE //stops people changing visablity.
+	/// A color used to tint this genital, such as for accessories.
+	var/colourtint = ""
+	/// The circumstance that this genital may be visible. Either visible, hidden, or hidden under clothes.
+	var/visibility_state = GENITALS_CLOTHES
+	/// Whether or not the user is allowed to change this genital's visibility.
+	var/change_visibility = TRUE
+	/// The list of equipped items on this genital.
+	var/list/obj/item/equipment
+
 
 /obj/item/organ/genital/Initialize()
 	. = ..()
@@ -60,7 +66,6 @@
 		return FALSE
 	if(through_clothes)
 		return TRUE
-
 	switch(zone) //update as more genitals are added
 		if("chest")
 			return owner.is_chest_exposed()
@@ -70,27 +75,20 @@
 			return owner.is_groin_exposed()
 		if("anus")
 			return owner.is_butt_exposed()
-
 	return FALSE
 
 /obj/item/organ/genital/proc/toggle_visibility(visibility)
 	switch(visibility)
 		if("Always visible")
-			through_clothes = TRUE
-			hidden = FALSE
-			mode = GENITALS_VISIBLE
+			visibility_state = GENITALS_VISIBLE
 			if(!(src in owner.exposed_genitals))
 				owner.exposed_genitals += src
 		if("Hidden by clothes")
-			through_clothes = FALSE
-			hidden = FALSE
-			mode = GENITALS_CLOTHES
+			visibility_state = GENITALS_CLOTHES
 			if(src in owner.exposed_genitals)
 				owner.exposed_genitals -= src
 		if("Always hidden")
-			through_clothes = FALSE
-			hidden = TRUE
-			mode = GENITALS_HIDDEN
+			visibility_state = GENITALS_HIDDEN
 			if(src in owner.exposed_genitals)
 				owner.exposed_genitals -= src
 	if(ishuman(owner)) //recast to use update genitals proc
@@ -217,7 +215,6 @@
 			T.fluid_id = dna.features["balls_fluid"]
 			T.fluid_rate = dna.features["balls_cum_rate"]
 			T.fluid_mult = dna.features["balls_cum_mult"]
-			T.fluid_efficiency = dna.features["balls_efficiency"]
 			T.update()
 
 /mob/living/carbon/human/proc/give_belly()
