@@ -12,6 +12,8 @@
 #define GENITALS_CLOTHES "clothes"
 #define GENITALS_VISIBLE "visible"
 
+#define FERTILITY 30
+
 /* GENITAL REWORK: CAPABILITIES */
 #define PENETRABLE (1<<0) /// if you can insert things into this genital
 #define PENETRATING (1<<1) /// if you can insert this genital into things
@@ -20,7 +22,9 @@
 #define PRODUCE_FLUIDS (1<<4) /// if this genital produces and stores fluids
 #define CAN_IMPREGNATE (1<<5) /// if this genital can get someone pregnant
 #define CAN_GET_PREGNANT (1<<6) /// if this genital can lead to impregnation
-#define EXTERNAL_GENITALS (1<<7) /// if you can rub this genital against something
+#define CAN_GRIND (1<<7) /// if you can rub this genital against something
+#define DO_NOT_LIST (1<<8) // prevent this genital from showing up in configuration/selection lists
+#define VISIBLE_GENITALS (1<<9) // whether or not these genitals have an external appearance
 
 #define SENSITIVITY_DEFAULT 1
 #define SENSITIVITY_LESS 0.66

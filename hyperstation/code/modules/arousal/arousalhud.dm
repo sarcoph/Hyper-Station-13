@@ -10,7 +10,7 @@
 	var/mob/living/carbon/U = user
 	for(var/obj/item/organ/genital/G in U.internal_organs)
 		if(G.change_visibility)
-			if(!G.dontlist)
+			if(G.is_capable(DO_NOT_LIST))
 				var/genital_visibility = "[G.name] <font color='green'>(Visible)</font>"
 				switch(G.visibility_state)
 					if(GENITALS_HIDDEN)
@@ -299,7 +299,6 @@ obj/screen/arousal/proc/kiss()
 	return
 
 /mob/living/carbon/human/proc/menuremovesounding()
-
 	if(restrained(TRUE))
 		to_chat(src, "<span class='warning'>You can't do that while restrained!</span>")
 		return
@@ -334,7 +333,7 @@ obj/screen/arousal/proc/kiss()
 		return
 	//We got hands, let's pick an organ
 	var/obj/item/organ/genital/picked_organ
-	picked_organ = pick_climax_genitals(masturbation=TRUE, title="Masturbation")
+	picked_organ = pick_genitals(capabilities=CAN_GRIND, title="Masturbation")
 	if(picked_organ)
 		src << browse(null, "window=arousal") //closes the window
 		mob_masturbate(picked_organ)
@@ -359,7 +358,7 @@ obj/screen/arousal/proc/kiss()
 /mob/living/carbon/human/proc/climaxalone()
 	//we dont need hands to climax alone, its hands free!
 	var/obj/item/organ/genital/picked_organ
-	picked_organ = pick_climax_genitals()
+	picked_organ = pick_genitals()
 	if(picked_organ)
 		src << browse(null, "window=arousal") //closes the window
 		mob_climax_outside(picked_organ)
@@ -373,7 +372,7 @@ obj/screen/arousal/proc/kiss()
 		to_chat(src, "<span class='warning'>You cannot do this alone.</span>")
 		return
 	var/obj/item/organ/genital/picked_organ
-	picked_organ = pick_climax_genitals()
+	picked_organ = pick_genitals()
 	if(!picked_organ)
 		to_chat(src, "<span class='warning'>You cannot climax without choosing genitals.</span>")
 		return
@@ -383,7 +382,7 @@ obj/screen/arousal/proc/kiss()
 
 /mob/living/carbon/human/proc/climaxover(atom/partner)
 	var/obj/item/organ/genital/picked_organ
-	picked_organ = pick_climax_genitals()
+	picked_organ = pick_genitals()
 	if(!picked_organ)
 		to_chat(src, "<span class='warning'>You cannot climax without choosing genitals.</span>")
 		return
@@ -449,7 +448,7 @@ obj/screen/arousal/proc/kiss()
 	//We got hands, let's pick an organ
 	var/obj/item/organ/genital/picked_organ
 	src << browse(null, "window=arousal")
-	picked_organ = pick_climax_genitals() //Gotta be climaxable, not just masturbation, to fill with fluids.
+	picked_organ = pick_genitals() //Gotta be climaxable, not just masturbation, to fill with fluids.
 	if(picked_organ)
 		//Good, got an organ, time to pick a container
 		var/obj/item/reagent_containers/fluid_container = pick_climax_container()
@@ -497,7 +496,7 @@ obj/screen/arousal/proc/kiss()
 		return
 	//We got hands, let's pick an organ
 	var/obj/item/organ/genital/picked_organ
-	picked_organ = pick_climax_genitals(masturbation=TRUE, title="Masturbation")
+	picked_organ = pick_genitals(masturbation=TRUE, title="Masturbation")
 	if(picked_organ)
 		src << browse(null, "window=arousal") //closes the window
 		mob_masturbate(picked_organ, cover = TRUE)

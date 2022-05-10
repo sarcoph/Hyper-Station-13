@@ -5,17 +5,13 @@
 	icon_state 		= "womb"
 	zone 			= "groin"
 	slot 			= "womb"
-	internal 		= TRUE
 	fluid_id 		= /datum/reagent/consumable/femcum
-	producing		= TRUE
-	var/pregnant	= FALSE //this is for pregnancy code
-	dontlist		= TRUE
 
 
 /obj/item/organ/genital/womb/on_life()
 	if(QDELETED(src))
 		return
-	if(reagents && producing)
+	if(reagents && is_capable(PRODUCE_FLUIDS))
 		if(reagents.total_volume == 0) // Apparently, 0.015 gets rounded down to zero and no reagents are created if we don't start it with 0.1 in the tank.
 			fluid_rate = 0.1
 		else

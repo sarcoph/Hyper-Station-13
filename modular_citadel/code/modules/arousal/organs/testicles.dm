@@ -14,10 +14,7 @@
 	fluid_mult				= 1.0 //Defaults to 1 no matter what you do. It just does. Just gonna adapt I guess.
 	fluid_max_volume		= 3
 	fluid_id 				= /datum/reagent/consumable/semen
-	producing				= TRUE
-	can_masturbate_with		= FALSE
 	masturbation_verb 		= "massage"
-	can_climax				= TRUE
 	var/sent_full_message	= TRUE //defaults to 1 since they're full to start
 
 
@@ -29,7 +26,7 @@
 		return
 	//reagents.maximum_volume = fluid_max_volume * cached_size// fluid amount is also scaled by the size of the organ
 	reagents.maximum_volume = fluid_max_volume * ((cached_size / 2) + 1) * ((size / 2) + 1) * fluid_mult //Hyper - New calculation for more dynamic fluid levels. I can't believe I typed that.
-	if(fluid_id && producing)
+	if(fluid_id && is_capable(PRODUCE_FLUIDS))
 		if(reagents.total_volume == 0) // Apparently, 0.015 gets rounded down to zero and no reagents are created if we don't start it with 0.1 in the tank.
 			fluid_rate = 0.1
 		else
@@ -82,7 +79,7 @@
 		else
 			size_name = "nonexistant"
 
-	if(!internal)
+	if(is_capable(VISIBLE_GENITALS))
 		desc = "You see an [size_name] pair of testicles."
 	else
 		desc = "They don't have any testicles you can see."

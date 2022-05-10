@@ -106,9 +106,15 @@
 	if(user == holder)
 		option = input(usr, "Choose action", "Portal Fleshlight", "Fuck") in list("Fuck", "Lick", "Touch")
 	var/obj/item/organ/genital/target_genital = portalunderwear.loc
+	var/obj/item/organ/genital/using_genital
 	var/mob/living/carbon/human/target = target_genital.owner
-	var/obj/item/organ/genital/penis/P = user.getorganslot("penis")
-	if(option == "Fuck" && !P.is_exposed())
+	var/mob/living/carbon/human/user_human = user
+	var/mob/living/carbon/human/holder_human = holder
+	if(holder == user)
+		using_genital = user_human.pick_genitals(PENETRATING)
+	else
+		using_genital = holder_human.target_genitals(PENETRATING, user)
+	if(option == "Fuck" && !using_genital.is_exposed())
 		to_chat(holder, "<span class='notice'>You don't see anywhere to use this on.</span>")
 		return
 	/* 
@@ -116,8 +122,8 @@
 	*/
 	inuse = TRUE
 	if(user != holder)
-		user.visible_message("<span class='userlove'>[holder] is trying to use [src] on [user]'s penis.</span>",\
-			"<span class='userlove'>[holder] is trying to use [src] on your penis.</span>")
+		user.visible_message("<span class='userlove'>[holder] is trying to use [src] on [user]'s [using_genital].</span>",\
+			"<span class='userlove'>[holder] is trying to use [src] on your [using_genital].</span>")
 	if(!do_mob(holder, user, 3 SECONDS))
 		inuse = FALSE
 		return
@@ -129,12 +135,12 @@
 		if("Fuck")
 			playsound(src, 'sound/lewd/slaps.ogg', 30, 1, -1)
 			if(user == holder)
-				holder.visible_message("<span class='userlove'>[holder] pumps [src] on their penis.</span>",
+				holder.visible_message("<span class='userlove'>[holder] pumps [src] on their [using_genital].</span>",
 					"<span class='userlove'>You pump the fleshlight on your penis.</span>")
 			else
-				user.visible_message("<span class='userlove'>[holder] pumps [src] on [user]'s penis.</span>",\
-					"<span class='userlove'>[holder] pumps [src] up and down on your penis.</span>")
-			to_chat(target, "<span class='love'>You feel a [P.length] inch, [P.shape] shaped penis pumping through the portal into your [target_genital.name].</span>")
+				user.visible_message("<span class='userlove'>[holder] pumps [src] on [user]'s [using_genital].</span>",\
+					"<span class='userlove'>[holder] pumps [src] up and down on your [using_genital].</span>")
+			to_chat(target, "<span class='love'>You feel a [using_genital.shape] [using_genital.display_size] [using_genital] pumping through the portal into your [target_genital.name].</span>")
 			if(prob(30))
 				user.emote("moan")
 			user.adjustArousalLoss(20)
@@ -144,9 +150,8 @@
 				target.mob_climax_outside(target_genital, spillage=target_genital.is_exposed())
 			if(user.can_orgasm())
 				var/mob/living/carbon/human/O = user
-				var/impreg_chance = target_genital.name == "vagina" && !P.condom && !P.sounding
-				if(O.mob_climax_in_partner(P, target, spillage=FALSE, remote=TRUE) && impreg_chance)
-					target.impregnate(by=O)
+				if(O.mob_climax_in_partner(using_genital, target, spillage=FALSE, remote=TRUE))
+					target_genital.impregnate(by=using_genital)
 		if("Lick")
 			holder.visible_message("<span class='userlove'>[holder] licks into [src].</span>",\
 				"<span class='userlove'>You lick into [src].</span>")
@@ -238,10 +243,10 @@
 	var/obj/item/organ/genital/picked_organ
 	var/mob/living/carbon/human/S = user
 	var/mob/living/carbon/human/T = C
-	picked_organ = S.target_genitals(T)
+	picked_organ = S.target_genitals(capabilities=PENETRABLE,target=T)
 	if(picked_organ)
 		C.visible_message("<span class='warning'>[user] is trying to attach [src] to [T]!</span>",\
-						"<span class='warning'>[user] is trying to put [src] on you!</span>")
+			"<span class='warning'>[user] is trying to put [src] on you!</span>")
 		if(!do_mob(user, C, 3 SECONDS))//warn them and have a delay of 5 seconds to apply.
 			return
 		if((picked_organ.name == "vagina")||(picked_organ.name == "anus")) //only fits on a vagina or anus

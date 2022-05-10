@@ -5,21 +5,16 @@
 	icon 					= 'modular_citadel/icons/obj/genitals/penis.dmi'
 	zone 					= "groin"
 	slot 					= ORGAN_SLOT_PENIS
-	can_masturbate_with 	= TRUE
 	masturbation_verb 		= "stroke"
-	can_climax 				= TRUE
 	fluid_transfer_factor	= 0.5
 	size 					= 2 //arbitrary value derived from length and girth for sprites.
-	var/condom				= 0 //No condom, its better this way...
-	var/sounding			= 0
 	var/length 				= 6	//inches
 	var/cached_length			//used to detect a change in length
 	var/girth  				= 3.38
 	var/girth_ratio 		= COCK_GIRTH_RATIO_DEF //0.73; check citadel_defines.dm
 	var/knot_girth_ratio 	= KNOT_GIRTH_RATIO_DEF
-	var/list/dickflags 		= list()
 	var/list/knotted_types 	= list("knotted", "barbed, knotted")
-	var/prev_length			= 6 //really should be renamed to prev_length
+	var/prev_length			= 6
 
 /obj/item/organ/genital/penis/Initialize()
 	. = ..()

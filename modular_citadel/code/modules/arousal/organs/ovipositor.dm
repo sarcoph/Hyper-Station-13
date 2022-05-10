@@ -14,4 +14,3 @@
 	var/knot_girth_ratio = KNOT_GIRTH_RATIO_DEF
 	var/list/oviflags = list()
 	var/obj/item/organ/eggsack/linked_eggsack
-	dontlist		= TRUE

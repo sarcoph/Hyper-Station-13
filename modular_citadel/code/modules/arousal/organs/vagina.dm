@@ -6,17 +6,15 @@
 	zone 					= "groin"
 	slot 					= "vagina"
 	size					= 1 //There is only 1 size right now
-	can_masturbate_with		= TRUE
 	masturbation_verb 	= "finger"
-	can_climax 				= TRUE
 	fluid_transfer_factor = 0.1 //Yes, some amount is exposed to you, go get your AIDS
 	w_class 				= 3
-	var/cap_length		= 8//D   E   P   T   H (cap = capacity)
-	var/cap_girth		= 12
-	var/cap_girth_ratio = 1.5
-	var/clits				= 1
-	var/clit_diam 			= 0.25
-	var/clit_len			= 0.25
+	// var/cap_length		= 8//D   E   P   T   H (cap = capacity)
+	// var/cap_girth		= 12
+	// var/cap_girth_ratio = 1.5
+	// var/clits				= 1
+	// var/clit_diam 			= 0.25
+	// var/clit_len			= 0.25
 	var/list/vag_types = list("tentacle", "dentata", "hairy", "spade", "furred")
 
 

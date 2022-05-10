@@ -1,13 +1,37 @@
 /* GENITAL REWORK */
 /obj/item/organ/genital
 	/// Bitflags representing the capabilities of this genital.
-	var/base_capabilities = (EXTERNAL_GENITALS|CAN_CLIMAX)
+	var/base_capabilities = (VISIBLE_GENITALS)
 	/// Bitflag capabilities that are temporarily disabled for this genital.
 	var/negated_capabilities
 	/// A multiplier applied to arousal gained from stimulating this genital.
 	var/sensitivity = SENSITIVITY_DEFAULT
 	/// Numbers temporarily added or multiplied to different stats.
 	var/list/stat_modifiers
+	/// The fertility of this genital. Only relevant if genital CAN_GET_PREGNANT or CAN_IMPREGNATE.
+	var/fertility = 0
+
+
+/obj/item/organ/genital/proc/enable_capability(capability)
+	if(!capability)
+		return
+	DISABLE_BITFIELD(negated_capabilities, capability)
+
+/obj/item/organ/genital/proc/disable_capability(capability)
+	if(!capability)
+		return
+	ENABLE_BITFIELD(negated_capabilities, capability)
+
+/obj/item/organ/genital/proc/get_effective_capabilities()
+	var/capabilities = src.base_capabilities
+	DISABLE_BITFIELD(capabilities, negated_capabilities)
+	return capabilities
+
+
+/obj/item/organ/genital/proc/is_capable(capability)
+	if(!capability)
+		return
+	return CHECK_BITFIELD(get_effective_capabilities(), capability)
 
 
 /**
@@ -16,7 +40,7 @@
 	* **Example:** Let's say the character's penis has a base sensitivity of 1.
 	* They have consumed a chemical that is giving them +0.1 base sensitivity.
 	* They have a sounding rod inserted, which gives them *1.5 sensitivity.
-	* The calculated totaal would be (1 + BASE) * MULTIPLIER + MODIFIER,
+	* The calculated totaal would be (BASE + BASEMOD) * MULTIPLIER + MODIFIER,
 	* which would be (1 + 0.1) * 1.5 + 0 = 1.65 sensitivity.
 	*
 	* Unlike `get_modifier_totals()`, this also factors in the `linked_organ`'s
@@ -131,8 +155,8 @@
 	* `null`|`var/datum/reagents`: The reagent data connected to this organ.
 	*/
 /obj/item/organ/genital/proc/get_fluid_source()
-	if(producing)
+	if(is_capable(PRODUCE_FLUIDS))
 		return src.reagents
-	if(linked_organ && linked_organ.producing)
+	if(linked_organ && linked_organ.is_capable(PRODUCE_FLUIDS))
 		return linked_organ.reagents
 	return null

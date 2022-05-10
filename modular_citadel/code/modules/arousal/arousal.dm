@@ -130,16 +130,6 @@
 	. = ..()
 	for(var/obj/item/organ/genital/genital in internal_organs)
 		if(istype(genital))
-			var/datum/sprite_accessory/S
-			switch(genital.type)
-				if(/obj/item/organ/genital/penis)
-					S = GLOB.cock_shapes_list[genital.shape]
-				if(/obj/item/organ/genital/testicles)
-					S = GLOB.balls_shapes_list[genital.shape]
-				if(/obj/item/organ/genital/vagina)
-					S = GLOB.vagina_shapes_list[genital.shape]
-				if(/obj/item/organ/genital/breasts)
-					S = GLOB.breasts_shapes_list[genital.shape]
 			genital.aroused_state = isPercentAroused(genital.aroused_threshold)
 			genital.update_appearance()
 
@@ -471,15 +461,15 @@
 	* - `impreg`: Whether or not this interaction has a chance to impregnate.
 	*/
 /mob/living/carbon/human/proc/mob_climax_inside_spillage(obj/item/organ/genital/picked_organ, mob/living/carbon/partner, impreg=FALSE)
-	var/obj/item/organ/genital/penis/_penis = picked_organ
-	if(picked_organ.name != "penis" || _penis.sounding || _penis.condom)
+	var/obj/item/organ/genital/penis/penis = picked_organ
+	if(picked_organ.name != "penis" || penis.sounding || penis.condom)
 		mob_climax_in_partner(picked_organ, partner, spillage=FALSE)
 		return
 	var/_question = "Would your fluids spill outside?"
 	var/_title = "Choose overflowing option"
 	var/spillage = input(src, _question, _title, "Yes") as anything in list("Yes", "No")
 	if(mob_climax_in_partner(picked_organ, partner, spillage == "Yes") && impreg)
-		partner.impregnate(by=src)
+		partner.impregnate(by=penis)
 
 
 /**
@@ -529,11 +519,13 @@
 	*
 	* Returns: `null`|`obj/item/organ/genital`: The selected genital.
 	*/
-/mob/living/carbon/human/proc/target_genitals(mob/living/carbon/human/T)
+/mob/living/carbon/human/proc/target_genitals(capabilities, mob/living/carbon/human/target)
 	var/obj/item/organ/genital/ret_organ
 	var/list/genitals_list = list()
-	for(var/obj/item/organ/genital/genital in T.internal_organs)
-		if(genital.is_exposed() && !genital.dontlist)
+	for(var/obj/item/organ/genital/genital in target.internal_organs)
+		if(!genital.is_capable(DO_NOT_LIST) && genital.is_exposed())
+			if(capabilities && !genital.is_capable(capabilities))
+				continue
 			genitals_list += genital
 	if(genitals_list.len)
 		ret_organ = input(src, "", "Genitals", null)  as null|obj in genitals_list
@@ -545,22 +537,23 @@
 	* Prompts the user to select genitals. The genitals must be exposed to be selectable.
 	*
 	* Arguments:
-	* - `masturbation`: Whether or not this is being used for masturbation interactions.
+	* - `capabilities`: The capability flags required for this interaction.
 	* - `title`: The title of the prompt window.
 	*
 	* Returns: `null`|`obj/item/organ/genital`: The selected genital.
 	*/
-/mob/living/carbon/human/proc/pick_climax_genitals(masturbation=FALSE, title="Climax")
+/mob/living/carbon/human/proc/pick_genitals(capabilities, title="Climax")
 	var/obj/item/organ/genital/ret_organ
 	var/list/genitals_list = list()
 	for(var/obj/item/organ/genital/genital in internal_organs)
-		if(genital.can_climax && genital.is_exposed() && !genital.dontlist)
-			if(!masturbation || genital.can_masturbate_with)
-				genitals_list += genital
+		if(!genital.is_capable(DO_NOT_LIST) && genital.is_exposed())
+			if(capabilities && !genital.is_capable(capabilities))
+				continue
+			genitals_list += genital
 	if(genitals_list.len)
-		ret_organ = input(src, "with what?", title, null)  as null|obj in genitals_list
+		ret_organ = input(src, "With what?", title, null)  as null|obj in genitals_list
 		return ret_organ
-	return null //error stuff
+	return null
 
 
 /**
@@ -680,7 +673,7 @@
 				return
 			//We got hands, let's pick an organ
 			var/obj/item/organ/genital/picked_organ
-			picked_organ = pick_climax_genitals(masturbation=TRUE, title="Masturbation")
+			picked_organ = pick_genitals(masturbation=TRUE, title="Masturbation")
 			if(picked_organ)
 				mob_masturbate(picked_organ)
 				return
@@ -704,7 +697,7 @@
 				return
 			//We got hands, let's pick an organ
 			var/obj/item/organ/genital/picked_organ
-			picked_organ = pick_climax_genitals()
+			picked_organ = pick_genitals()
 			if(picked_organ)
 				mob_climax_outside(picked_organ)
 				return
@@ -715,7 +708,7 @@
 		if("Climax with partner")
 			//We need no hands, we can be restrained and so on, so let's pick an organ
 			var/obj/item/organ/genital/picked_organ
-			picked_organ = pick_climax_genitals()
+			picked_organ = pick_genitals()
 			if(!picked_organ)
 				to_chat(src, "<span class='warning'>You cannot climax without choosing genitals.</span>")
 				return
@@ -723,9 +716,8 @@
 			if(!partner)
 				to_chat(src, "<span class='warning'>You cannot do this alone.</span>")
 				return
-			var/obj/item/organ/genital/penis/P = picked_organ
 			var/impreg = "No"
-			if(partner.breedable && picked_organ.name == "penis" && !P.condom && !P.sounding)
+			if(partner.breedable && picked_organ.is_capable(CAN_IMPREGNATE) && picked_organ.get_effective_stat("fertility"))
 				var/impreg_question = "Would this action carry the risk of pregnancy?"
 				var/impreg_title = "Choose a option"
 				impreg = input(src, impreg_question, impreg_title, "Yes") as anything in list("Yes", "No")
@@ -733,7 +725,7 @@
 
 		if("Climax over partner")
 			var/obj/item/organ/genital/picked_organ
-			picked_organ = pick_climax_genitals()
+			picked_organ = pick_genitals()
 			if(picked_organ)	
 				var/mob/living/carbon/partner = pick_partner(needs_exposed=FALSE) //Get your partner, clothed or not.
 				if(partner)
@@ -758,7 +750,7 @@
 				return
 			//We got hands, let's pick an organ
 			var/obj/item/organ/genital/picked_organ
-			picked_organ = pick_climax_genitals() //Gotta be climaxable, not just masturbation, to fill with fluids.
+			picked_organ = pick_genitals() //Gotta be climaxable, not just masturbation, to fill with fluids.
 			if(picked_organ)
 				//Good, got an organ, time to pick a container
 				var/obj/item/reagent_containers/fluid_container = pick_climax_container()
@@ -792,7 +784,7 @@
 		if(!istype(O, /obj/item/organ/genital))
 			continue
 		var/obj/item/organ/genital/current_genital = O
-		if(!current_genital.can_climax)
+		if(!current_genital.is_capable(CAN_CLIMAX))
 			continue // no wombs or testicles
 		var/mob/living/carbon/partner
 		var/check_target
@@ -818,20 +810,25 @@
   * Rolls a chance for the mob to get pregnant, assuming they are capable of doing so.
   *
   * Arguments:
-  * - `by` - The mob that is impregnating this one.
+  * - `by` - The genital being used to impregnate this mob.
   */
-/mob/living/carbon/proc/impregnate(mob/living/carbon/by)
-	var/obj/item/organ/genital/womb/W = getorganslot("womb")
-	if(!W || W.pregnant || !breedable)
+/obj/item/organ/genital/proc/impregnate(obj/item/organ/genital/by)
+	var/mob/living/carbon/owner = src.owner
+	if(pregnant || !owner.breedable)
 		return
-	if(!prob(impregchance))
+	var/impreg_chance = get_impregnation_chance(src, by)
+	// not a direct product of the two fertilities!
+	// penetrating partner has a fertility * 100 chance of passing (e.g. 0.5 = 50%)
+	// penetrated partner has a fertility * 30 chance of passing (e.g. 1 = 30%)
+	// both must pass for the receiving partner to get pregnant
+	if(!impreg_chance || !prob(impreg_chance))
 		return
-	W.pregnant = TRUE
-	log_game("DEBUG: [src] has been impregnated by [by]")
-	to_chat(src, "<span class='userlove'>You feel your hormones change, and a motherly instinct take over.</span>")
-	if(HAS_TRAIT(src, TRAIT_HEAT))
-		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "heat", /datum/mood_event/heat)
-		REMOVE_TRAIT(src, TRAIT_HEAT, ROUNDSTART_TRAIT)
-	var/obj/item/organ/genital/breasts/B = src.getorganslot("breasts")
+	pregnant = TRUE
+	log_game("DEBUG: [owner] has been impregnated by [by.owner]")
+	to_chat(owner, "<span class='userlove'>You feel your hormones change, and a motherly instinct take over.</span>")
+	if(HAS_TRAIT(owner, TRAIT_HEAT))
+		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "heat", /datum/mood_event/heat)
+		REMOVE_TRAIT(owner, TRAIT_HEAT, ROUNDSTART_TRAIT)
+	var/obj/item/organ/genital/breasts/B = owner.getorganslot("breasts")
 	if (B && B.fluid_mult < 0.5)
 		B.fluid_mult = 0.5

@@ -65,12 +65,27 @@
 	var/ichange = 0
 
 /datum/quirk/virile/add()
+	if(!quirk_holder)
+		return
+	if(!iscarbon(quirk_holder))
+		return
 	ichange = rand(20,30)
-	quirk_holder.impregchance += ichange
+	var/mob/living/carbon/holder_carbon = quirk_holder
+	var/list/impregnable_genitals = holder_carbon.get_capable_genitals(CAN_GET_PREGNANT)
+	if(impregnable_genitals.len)
+		for(var/obj/item/organ/genital/impregnable in impregnable_genitals)
+			impregnable.add_modifier(type=STAT_ADD_BASE, name="virile", stat="fertility", value=(ichange/100))
 
 /datum/quirk/virile/remove()
-	if(quirk_holder)
-		quirk_holder.impregchance -= ichange
+	if(!quirk_holder)
+		return
+	if(!iscarbon(quirk_holder))
+		return
+	var/mob/living/carbon/holder_carbon = quirk_holder
+	var/list/impregnable_genitals = holder_carbon.get_capable_genitals(CAN_GET_PREGNANT)
+	if(impregnable_genitals.len)
+		for(var/obj/item/organ/genital/impregnable in impregnable_genitals)
+			impregnable.remove_modifier("virile")
 
 /datum/quirk/macrophile
 	name = "Macrophile"

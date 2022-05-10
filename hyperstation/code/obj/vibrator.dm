@@ -67,35 +67,30 @@ Code:
 				return
 
 /obj/item/electropack/vibrator/attack(mob/living/carbon/C, mob/living/user)
-
 	var/obj/item/organ/genital/picked_organ
 	var/mob/living/carbon/human/S = user
 	var/mob/living/carbon/human/T = C
-	picked_organ = S.target_genitals(T)
+	picked_organ = S.target_genitals(target=T)
 	if(picked_organ)
 		C.visible_message("<span class='warning'>[user] is trying to attach [src] to [T]!</span>",\
-						"<span class='warning'>[user] is trying to put [src] on you!</span>")
+			"<span class='warning'>[user] is trying to put [src] on you!</span>")
 		if(!do_mob(user, C, 5 SECONDS))//warn them and have a delay of 5 seconds to apply.
 			return
-
-		if(style == "long" && !(picked_organ.name == "vagina")) //long vibrators dont fit on anything but vaginas, but small ones fit everywhere
+		if(style == "long" && !picked_organ.is_capable(PENETRABLE)) //long vibrators dont fit on anything but vaginas, but small ones fit everywhere
 			to_chat(user, "<span class='warning'>[src] is too big to fit there, use a smaller version.</span>")
 			return
-
 		if(!picked_organ.equipment)
-			if(!(style == "long"))
-				to_chat(user, "<span class='love'>You attach [src] to [T]'s [picked_organ.name].</span>")
-			else
+			if(style == "long")
 				to_chat(user, "<span class='love'>You insert [src] into [T]'s [picked_organ.name].</span>")
+			else
+				to_chat(user, "<span class='love'>You attach [src] to [T]'s [picked_organ.name].</span>")
 		else
 			to_chat(user, "<span class='notice'>They already have a [picked_organ.equipment.name] there.</span>")
 			return
-
 		if(!user.transferItemToLoc(src, picked_organ)) //check if you can put it in
 			return
 		src.inside = TRUE
 		picked_organ.equipment = src
-
 	else
 		to_chat(user, "<span class='notice'>You don't see anywhere to attach this.</span>")
 

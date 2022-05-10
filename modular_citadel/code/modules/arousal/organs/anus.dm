@@ -10,9 +10,7 @@
 	var/size_name			= "nonexistant"
 	var/statuscheck			= FALSE
 	shape					= "Pair"
-	can_masturbate_with 	= FALSE
 	masturbation_verb 		= "massage"
-	can_climax				= FALSE
 
 /obj/item/organ/genital/anus/on_life()
 	if(QDELETED(src))

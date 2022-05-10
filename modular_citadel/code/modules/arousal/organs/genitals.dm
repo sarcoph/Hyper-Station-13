@@ -7,6 +7,8 @@
 	var/masturbation_verb = "masturbate"
 	/// Size of genitals. This should be a number!
 	var/size = 2
+	/// The display size for this genital.
+	var/display_size = ""
 	/// How much fluid is transferred to a partner upon climaxing.
 	var/fluid_transfer_factor	= 0.0
 	/// The reagent produced and transferred on climax.
@@ -31,6 +33,8 @@
 	var/change_visibility = TRUE
 	/// The list of equipped items on this genital.
 	var/list/obj/item/equipment
+	/// Whether or not this genital is pregnant. Thanks to the rework, this has to be put here instead of in wombs.
+	var/pregnant	= FALSE
 
 
 /obj/item/organ/genital/Initialize()
@@ -60,21 +64,19 @@
 /obj/item/organ/genital/proc/is_exposed()
 	if(!owner)
 		return FALSE
-	if(hidden)
-		return FALSE
-	if(internal)
-		return FALSE
-	if(through_clothes)
-		return TRUE
-	switch(zone) //update as more genitals are added
-		if("chest")
-			return owner.is_chest_exposed()
-		if("belly")
-			return owner.is_chest_exposed()
-		if("groin")
-			return owner.is_groin_exposed()
-		if("anus")
-			return owner.is_butt_exposed()
+	switch(visibility_state)
+		if(GENITALS_VISIBLE)
+			return TRUE
+		if(GENITALS_CLOTHES)
+			switch(zone) //update as more genitals are added
+				if("chest")
+					return owner.is_chest_exposed()
+				if("belly")
+					return owner.is_chest_exposed()
+				if("groin")
+					return owner.is_groin_exposed()
+				if("anus")
+					return owner.is_butt_exposed()
 	return FALSE
 
 /obj/item/organ/genital/proc/toggle_visibility(visibility)
@@ -104,7 +106,7 @@
 	for(var/obj/item/organ/O in internal_organs)
 		if(isgenital(O))
 			var/obj/item/organ/genital/G = O
-			if(!G.internal)
+			if(G.is_capable(VISIBLE_GENITALS))
 				genital_list += G
 	if(!genital_list.len) //There is nothing to expose
 		return
@@ -209,9 +211,9 @@
 			T.sack_size = dna.features["balls_sack_size"]
 			T.shape = dna.features["balls_shape"]
 			if(dna.features["balls_shape"] == "Hidden")
-				T.internal = TRUE
+				T.disable_capability(VISIBLE_GENITALS|CAN_GRIND)
 			else
-				T.internal = FALSE
+				T.enable_capability(VISIBLE_GENITALS|CAN_GRIND)
 			T.fluid_id = dna.features["balls_fluid"]
 			T.fluid_rate = dna.features["balls_cum_rate"]
 			T.fluid_mult = dna.features["balls_cum_mult"]
@@ -286,7 +288,10 @@
 				B.prev_size = B.size
 			B.shape = dna.features["breasts_shape"]
 			B.fluid_id = dna.features["breasts_fluid"]
-			B.producing = dna.features["breasts_producing"]
+			if(dna.features["breasts_producing"])
+				B.enable_capability(PRODUCE_FLUIDS)
+			else
+				B.disable_capability(PRODUCE_FLUIDS)
 			B.update()
 
 
@@ -423,7 +428,7 @@
 	for(var/obj/item/organ/O in H.internal_organs)
 		if(isgenital(O))
 			var/obj/item/organ/genital/G = O
-			if(G.hidden)
+			if(G.visibility_state == GENITALS_HIDDEN)
 				continue
 			if(G.is_exposed()) //Checks appropriate clothing slot and if it's through_clothes
 				genitals_to_add += H.getorganslot(G.slot)

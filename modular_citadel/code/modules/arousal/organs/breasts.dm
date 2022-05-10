@@ -16,11 +16,8 @@
 	var/amount				= 2
 	fluid_mult				= 0.25 // Set to a lower value due to production scaling with size (I.E. D cups produce the "normal" amount)
 	fluid_max_volume		= 10
-	producing				= TRUE
 	shape					= "Pair"
-	can_masturbate_with		= TRUE
 	masturbation_verb 		= "massage"
-	can_climax				= TRUE
 	fluid_transfer_factor 	= 0.5
 	var/sent_full_message	= TRUE //defaults to 1 since they're full to start
 
@@ -30,7 +27,7 @@
 	if(!reagents || !owner)
 		return
 	reagents.maximum_volume = fluid_max_volume * cached_size// fluid amount is also scaled by the size of the organ
-	if(fluid_id && producing)
+	if(fluid_id && is_capable(PRODUCE_FLUIDS))
 		if(reagents.total_volume == 0) // Apparently, 0.015 gets rounded down to zero and no reagents are created if we don't start it with 0.1 in the tank.
 			reagents.total_volume = 0.1
 		else
@@ -79,7 +76,7 @@
 			desc += " You estimate that they're [uppertext(size)]-cups."
 			//string = "breasts_[lowertext(shape)]_[size]-s"
 
-	if(producing && sent_full_message)
+	if(is_capable(PRODUCE_FLUIDS) && sent_full_message)
 		desc += " They're leaking [initial(fluid_id.name)]."
 	var/string
 	if(owner)

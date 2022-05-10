@@ -3145,6 +3145,7 @@
 #include "hyperstation\code\modules\arousal\arousalhud.dm"
 #include "hyperstation\code\modules\arousal\creampie.dm"
 #include "hyperstation\code\modules\arousal\expansion.dm"
+#include "hyperstation\code\modules\arousal\genital_getters.dm"
 #include "hyperstation\code\modules\arousal\organs\capabilities.dm"
 #include "hyperstation\code\modules\arousal\organs\genitals.dm"
 #include "hyperstation\code\modules\busy_space\air_traffic.dm"

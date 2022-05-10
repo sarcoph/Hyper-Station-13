@@ -10,8 +10,6 @@
 	var/statuscheck			= FALSE
 	shape					= "Pair"
 	masturbation_verb 		= "massage"
-	can_masturbate_with 	= FALSE
-	can_climax				= FALSE
 	var/sent_full_message	= TRUE //defaults to 1 since they're full to start
 	var/inflatable			= FALSE //For inflation connoisseurs
 
