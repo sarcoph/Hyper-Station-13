@@ -5,7 +5,7 @@ with a Scented Candle Kit, you can "capture" the aroma of an object and create
 scented candles out of it. scented candles can support up to three fragrances
 and be given a custom name and color. when someone walks into a room with a
 scented candle, they'll be given flavor text about it - "you can smell [aroma]
- from [candle]."
+from [candle]."
 
 created as a gimmick item for janitors, but anyone can enjoy making scented 
 candles
@@ -64,18 +64,15 @@ candles
   *	in the same room as you, you will get a bit of flavor text. You will not receive this
   * flavor text again unless you leave the room and come back.
   *
-  *	The candle performs these steps to do this:
-  * - Get a list of mobs in view range. For every mob in this list:
-  * - Add the mob to `_new_detected`, which keeps track of which mobs have been detected in this step.
-  * - Check the old `detected` if this mob has been detected prior. If not, this mob is considered
-  * to have "stepped in the room".
-  * - If this mob has "stepped in the room", they are given the flavor text.
-  * - If they remain in the room, they'll be found in all the "previous" `detected` lists on each process,
-  * meaning they won't be getting the flavor text.
-  * - If they leave the room, they'll be removed from the `detected` list on the next step, which means
-  * they can smell the candle again if detected.
+  * Basically, the candle has a list of mobs it has detected. It assembles a new list of mobs
+  * each ScentProcess. If you're in the new list, but not the old list, then you have just entered
+  * the candle's range. You get the flavor text. The new list replaces the old list.
   *
-  * I really wonder if there's a better way to do this because for some reason, initiating a new
+  * If you're still in the room for the next ScentProcess, you will not receive the text. If you
+  * exit range, you'll be removed from the list, meaning next time you enter range, you get the text
+  * again.
+  *
+  * I wonder if there's a better way to do this because for some reason, initiating a new
   * list every time does not feel like the best option.
   */
 /obj/item/candle/scented/proc/ScentProcess()
@@ -95,8 +92,45 @@ candles
 		to_chat(_mob, "<span class='notice'>You can smell [english_list(aromas)].</span>")
 	detected = _new_detected
 
+
 /// Scented trash candle; has color of original candle
 /obj/item/trash/candle/scented
 	name = "scented candle"
 	icon = 'hyperstation/icons/obj/scented_candle.dmi'
 	icon_state = "candle4"
+
+
+/// Fragrance bottles, used in Scented Candle Kit
+/obj/item/scentcontainer
+	name = "empty fragrance bottle"
+	icon = 'hyperstation/icons/obj/scented_candle.dmi'
+	icon_state = "emptybottle"
+	var/aroma = null
+
+/obj/item/scentcontainer/proc/EmptyFragrance(mob/living/user)
+	if(aroma)
+		to_chat(user, "<span class='notice'>You empty the [src.name].</span>")
+		aroma = null
+	update_icon_state()
+
+/obj/item/scentcontainer/proc/FillWithFragrance(mob/living/user, scent)
+	aroma = scent
+	update_icon_state()
+
+/obj/item/scentcontainer/update_icon_state()
+	if(aroma)
+		icon_state = "filledbottle"
+		name = "[aroma] fragrance bottle"
+		return
+	icon_state = "emptybottle"
+	name = "empty fragrance bottle"
+
+/obj/item/scentcontainer/attack(mob/living/M, mob/living/user)
+	. = ..()
+	if(!aroma)
+		FillWithFragrance(user, M.name)
+
+/obj/item/scentcontainer/attack_obj(obj/O, mob/living/user)
+	. = ..()
+	if(!aroma)
+		FillWithFragrance(user, O.name)
