@@ -11,7 +11,7 @@ created as a gimmick item for janitors, but anyone can enjoy making scented
 candles
 
 -- sarcoph, july 2022
- */
+*/
 
 
 /// Scented candle; produced by scented candle kit. When lit, it produces flavor text describing the aroma.
@@ -134,3 +134,7 @@ candles
 	. = ..()
 	if(!aroma)
 		FillWithFragrance(user, O.name)
+
+/obj/item/scentcontainer/CtrlClick(mob/user)
+	. = ..()
+	EmptyFragrance(user)
