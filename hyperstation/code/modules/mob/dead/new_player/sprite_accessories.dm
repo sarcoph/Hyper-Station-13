@@ -102,6 +102,16 @@ SNOUTS
 	icon_state = "chemlight"
 	icon = 'hyperstation/icons/mob/char_snouts.dmi'
 
+/datum/sprite_accessory/mam_snouts/pinata
+	name = "pinata (Hyper)"
+	icon_state = "pinata"
+	icon = 'hyperstation/icons/mob/char_snouts.dmi'
+
+/datum/sprite_accessory/mam_snouts/pinatasmile
+	name = "pinata Smile (Hyper)"
+	icon_state = "pinatasmile"
+	icon = 'hyperstation/icons/mob/char_snouts.dmi'
+
 /*
 EARS
 ==========================================================
@@ -222,6 +232,17 @@ WINGS
 	icon_state = "tinyfeather"
 	icon = 'hyperstation/icons/mob/char_wings.dmi'
 
+/datum/sprite_accessory/deco_wings/sylveon // Aphast @ hyperstation, november 2022
+	name = "Sylveon Ribbons"
+	icon_state = "sylveon_bow"
+	icon = 'hyperstation/icons/mob/char_wings.dmi'
+	color_src = MATRIXED
+
+/datum/sprite_accessory/horns/sylveon  // Aphast @ hyperstation, november 2022, best place to put this due to being a pair and no horn slots here
+	name = "Sylveon Bow"
+	icon = 'modular_citadel/icons/mob/mutant_bodyparts.dmi'
+	icon_state = "sylveon_bow"
+	color_src = MATRIXED
 
 /*
 TAILS + ANIMATED TAILS
@@ -437,11 +458,16 @@ from modular_citadel/code/modules/mob/dead/new_player/sprite_accessories.dm:
 	name = "RadDog (Hyper)"
 	icon_state = "chemlight"
 	icon = 'hyperstation/icons/mob/char_markings.dmi'
-	
+
 //racc do a code maybe it won't explode
 /datum/sprite_accessory/mam_body_markings/raccalt
 	name = "RaccAlt (Hyper)"
 	icon_state = "raccalt"
+	icon = 'hyperstation/icons/mob/char_markings.dmi'
+
+/datum/sprite_accessory/mam_body_markings/pinata
+	name = "pinata (Hyper)"
+	icon_state = "pinata"
 	icon = 'hyperstation/icons/mob/char_markings.dmi'
 
 /*
@@ -543,7 +569,7 @@ from modular_citadel/code/modules/mob/dead/new_player/sprite_accessories.dm:
 /datum/sprite_accessory/screen/visor/blue
 	name = "Blue Visor (Hyper)"
 	icon_state = "visor_blue"
-	
+
 /datum/sprite_accessory/screen/visor/green
 	name = "Green Visor (Hyper)"
 	icon_state = "visor_green"
@@ -559,7 +585,7 @@ from modular_citadel/code/modules/mob/dead/new_player/sprite_accessories.dm:
 /datum/sprite_accessory/screen/visor/yellow
 	name = "Yellow Visor (Hyper)"
 	icon_state = "visor_yellow"
-	
+
 
 /*
 HAIRSTYLES
@@ -601,3 +627,68 @@ from code/modules/mob/dead/new_player/sprite_accessories/hair_head.dm:
 /datum/sprite_accessory/hair/emoh
 	name = "Emo (Hyper)"
 	icon_state = "hair_emoh"
+
+/datum/sprite_accessory/hair/espada
+	name = "Espada  (Plant) (Hyper)"
+	icon_state = "hair_espada"
+	icon = 'hyperstation/icons/mob/char_hair.dmi'
+
+/datum/sprite_accessory/hair/guarana
+	name = "Guarana (Plant) (Hyper)"
+	icon_state = "hair_guarana"
+	icon = 'hyperstation/icons/mob/char_hair_big.dmi'
+	center = TRUE
+	dimension_y = 38
+
+/datum/sprite_accessory/hair/ipe
+	name = "Ipe (Plant) (Hyper)"
+	icon_state = "hair_ipe"
+	icon = 'hyperstation/icons/mob/char_hair_big.dmi'
+	center = TRUE
+	dimension_y = 38
+
+/datum/sprite_accessory/hair/narciso
+	name = "Narciso  (Plant) (Hyper)"
+	icon_state = "hair_narciso"
+	icon = 'hyperstation/icons/mob/char_hair.dmi'
+
+/datum/sprite_accessory/hair/ninfeia
+	name = "Ninfeia (Plant) (Hyper)"
+	icon_state = "hair_ninfeia"
+	icon = 'hyperstation/icons/mob/char_hair_big.dmi'
+	center = TRUE
+	dimension_y = 38
+
+/datum/sprite_accessory/hair/paubrasil
+	name = "Pau-Brasil (Plant) (Hyper)"
+	icon_state = "hair_paubrasil"
+	icon = 'hyperstation/icons/mob/char_hair_big.dmi'
+	center = TRUE
+	dimension_y = 38
+
+/datum/sprite_accessory/hair/roseira
+	name = "Roseira  (Plant) (Hyper)"
+	icon_state = "hair_roseira"
+	icon = 'hyperstation/icons/mob/char_hair_big.dmi'
+	center = TRUE
+	dimension_y = 38
+
+/datum/sprite_accessory/hair/samambaia
+	name = "Samambaia  (Plant) (Hyper)"
+	icon_state = "hair_samambaia"
+	icon = 'hyperstation/icons/mob/char_hair.dmi'
+
+/*
+BEARDS
+==========================================================
+*/
+
+/*
+/datum/sprite_accessory/facial_hair
+	icon = 'icons/mob/human_face.dmi'
+	gender = MALE // barf (unless you're a dorf, dorfs dig chix w/ beards :P)
+*/
+
+/datum/sprite_accessory/facial_hair/mane
+	name = "Neckfluff (Hyper)"
+	icon_state = "facial_neckfluff"

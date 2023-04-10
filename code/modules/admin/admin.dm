@@ -460,7 +460,7 @@
 	if(marked_datum && istype(marked_datum, /atom))
 		dat += "<A href='?src=[REF(src)];[HrefToken()];dupe_marked_datum=1'>Duplicate Marked Datum</A><br>"
 
-	usr << browse(dat, "window=admin2;size=210x200")
+	usr << browse(dat, "window=admin2;size=233x277")
 	return
 
 /////////////////////////////////////////////////////////////////////////////////////////////////admins2.dm merge
@@ -1040,3 +1040,32 @@
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] told everybody to man up.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Man Up Global")
 
+/client/proc/cmd_admin_preload_resource(F as icon)
+	set category = "Special Verbs"
+	set name = "Preload Resource"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/resource = fcopy_rsc(F)
+	for(var/thing in GLOB.clients)
+		var/client/C = thing
+		if (!C)
+			continue
+		C.Export("##action=load_rsc", resource)
+	message_admins("<span class='adminnotice'>[key_name_admin(usr)] preloaded resouce [F].</span>")
+
+/client/proc/cmd_admin_preload_sound(F as sound)
+	set category = "Special Verbs"
+	set name = "Preload Sound"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/resource = fcopy_rsc(F)
+	for(var/thing in GLOB.clients)
+		var/client/C = thing
+		if (!C)
+			continue
+		C.Export("##action=load_rsc", resource)
+	message_admins("<span class='adminnotice'>[key_name_admin(usr)] preloaded sound [F].</span>")
