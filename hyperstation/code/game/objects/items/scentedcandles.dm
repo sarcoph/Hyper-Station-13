@@ -17,7 +17,7 @@ candles
 /// Scented candle; produced by scented candle kit. When lit, it produces flavor text describing the aroma.
 /obj/item/candle/scented
 	name = "scented candle"
-	desc = "A candle that produces a special aroma when lit. This one doesn't smell like anything, though."
+	desc = "A candle that produces a special aroma when lit."
 	icon = 'hyperstation/icons/obj/scented_candle.dmi'
 	icon_state = "candle1"
 	wax = 2000
@@ -28,6 +28,13 @@ candles
 /obj/item/candle/scented/Initialize()
 	. = ..()
 	update_icon()
+
+/obj/item/candle/scented/examine(mob/user)
+	. = ..()
+	if (length(aromas) > 0)
+		. += "This one smells like [english_list(aromas)]."
+		return
+	. += "This one doesn't smell like anything."
 
 /obj/item/candle/scented/update_icon()
 	cut_overlays()
