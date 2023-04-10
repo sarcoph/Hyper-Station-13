@@ -100,7 +100,8 @@ export const TimeClock = (props, context) => {
             )}
           </LabeledList>
         </Section>
-        {!!(allow_change_job && job_datum ** job_datum.timeoff_factor !== 0 && assignment !== "Dismissed") && (
+        {!!(allow_change_job && job_datum ** job_datum.timeoff_factor !== 0
+        && assignment !== "Dismissed") && (
           <Section title="Employment Actions">
             {job_datum.timeoff_factor > 0 && (
               department_hours[job_datum.pto_department] > 0 && (
