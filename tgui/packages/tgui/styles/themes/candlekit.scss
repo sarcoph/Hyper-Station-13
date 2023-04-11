@@ -1,0 +1,14 @@
+@use 'sass:color';
+@use 'sass:meta';
+
+@use '../colors.scss';
+@use '../base.scss';
+
+.theme-candlekit {
+  .Layout__content {
+    background-image: url('../assets/candle-instructions.svg'), url('../assets/bg-kinaris.svg');
+    background-size: 100%, 70%;
+    background-position: top left, center;
+    background-repeat: no-repeat, no-repeat;
+  }
+}

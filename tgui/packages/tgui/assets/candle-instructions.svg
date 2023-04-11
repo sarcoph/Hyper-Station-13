@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="97.781967mm"
+   height="101.0479mm"
+   viewBox="0 0 97.781967 101.04792"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="candles.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.5287037"
+     inkscape:cx="145.54815"
+     inkscape:cy="211.6172"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="2552"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g174056"
+     fit-margin-left="1"
+     fit-margin-top="1"
+     fit-margin-bottom="1"
+     fit-margin-right="1" />
+  <defs
+     id="defs2">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient1282">
+      <stop
+         style="stop-color:#ffd5d5;stop-opacity:1"
+         offset="0"
+         id="stop1278" />
+      <stop
+         style="stop-color:#ff2a2a;stop-opacity:1"
+         offset="1"
+         id="stop1280" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1282"
+       id="radialGradient1284"
+       cx="21.784323"
+       cy="76.270561"
+       fx="21.784323"
+       fy="76.270561"
+       r="12.721154"
+       gradientTransform="matrix(1.2700101,0.01773203,-0.02376675,1.7022301,-6.7617213,-35.858368)"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="opacity:1"
+     transform="translate(-1.0801066,-18.267417)">
+    <g
+       id="g173969"
+       transform="translate(0,-9.0564061)">
+      <g
+         id="g174056">
+        <g
+           id="g139904"
+           transform="translate(-3.1153846,8.4807692)">
+          <path
+             style="opacity:1;fill:#ffcc00;stroke:none;stroke-width:1.96445;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000"
+             d="m 19.150442,56.855946 c -3.494267,0.687073 -5.962749,9.07389 0.320555,8.655003 3.18037,-0.304255 4.207917,-2.142045 2.850405,-4.221721 -1.576267,-2.414804 -2.697667,-2.825025 -3.17096,-4.433282 z"
+             id="path3085"
+             sodipodi:nodetypes="ccsc" />
+          <ellipse
+             style="opacity:1;fill:#ff2a2a;stroke:none;stroke-width:0.983409;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke fill markers;stop-color:#000000"
+             id="ellipse1192"
+             cx="18.613783"
+             cy="109.56069"
+             rx="12.721"
+             ry="6.0144229" />
+          <rect
+             style="opacity:1;fill:url(#radialGradient1284);fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke fill markers;stop-color:#000000"
+             id="rect934"
+             width="25.442308"
+             height="31.932692"
+             x="5.8748622"
+             y="78.516663" />
+          <ellipse
+             style="opacity:1;fill:#ff2a2a;stroke:none;stroke-width:0.983409;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke fill markers;stop-color:#000000"
+             id="path1110"
+             cx="18.552591"
+             cy="78.352806"
+             rx="12.721"
+             ry="6.0144229" />
+          <path
+             style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             d="M 17.317317,79.916663 C 24.249898,74.5852 14.505578,68.485967 18.847115,62.171003"
+             id="path1888" />
+          <path
+             style="opacity:0.5;fill:none;stroke:#ffe680;stroke-width:3;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             d="M 35.12417,78.20329 C 51.520796,68.314514 46.378277,91.559938 64.006761,72.328865"
+             id="path1923" />
+          <path
+             style="opacity:0.5;fill:none;stroke:#ffe680;stroke-width:3;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             d="M 36.470391,88.605918 C 56.387245,76.938177 38.465646,108.24492 60.702396,88.97307"
+             id="path1925" />
+          <path
+             style="opacity:0.5;fill:none;stroke:#ffe680;stroke-width:3;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             d="m 35.368936,97.050404 c 1.447109,-1.088515 4.586658,-3.708046 6.486345,-1.713373 2.460191,2.583198 -0.89435,7.154629 -0.734303,10.035479 0.56725,10.2105 15.45904,-1.23402 20.070955,-2.44768"
+             id="path1927" />
+          <path
+             style="opacity:1;fill:none;stroke:#ff6600;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000"
+             d="m 19.150442,56.855946 c -3.494267,0.687073 -5.962749,9.07389 0.320555,8.655003 3.005276,-0.287504 3.631743,-2.114024 2.998476,-3.851323 -0.633267,-1.737298 -1.716253,-1.357707 -3.319031,-4.80368 z"
+             id="path2452"
+             sodipodi:nodetypes="cczc" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;fill:#ffff00;fill-opacity:1;stroke:none;stroke-width:0.264583"
+             x="33.410797"
+             y="82.853874"
+             id="text17613"><tspan
+               sodipodi:role="line"
+               id="tspan17611"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';fill:#ffff00;stroke-width:0.264583"
+               x="33.410797"
+               y="82.853874">LAVENDER</tspan></text>
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;fill:#ffff00;fill-opacity:1;stroke:none;stroke-width:0.264583"
+             x="42.95837"
+             y="90.085014"
+             id="text17613-2"><tspan
+               sodipodi:role="line"
+               id="tspan17611-9"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';fill:#ffff00;stroke-width:0.264583"
+               x="42.95837"
+               y="90.085014">WARM HOME</tspan></text>
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;fill:#ffff00;fill-opacity:1;stroke:none;stroke-width:0.264583"
+             x="34.146729"
+             y="97.305664"
+             id="text17613-8"><tspan
+               sodipodi:role="line"
+               id="tspan17611-2"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';fill:#ffff00;stroke-width:0.264583"
+               x="34.146729"
+               y="97.305664">GOOD VIBES</tspan></text>
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:0;font-family:sans-serif;fill:#ffff00;fill-opacity:1;stroke:none;stroke-width:0.264583"
+             x="43.937439"
+             y="102.69055"
+             id="text17613-6"><tspan
+               sodipodi:role="line"
+               id="tspan17611-5"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';fill:#ffff00;stroke-width:0.264583"
+               x="43.937439"
+               y="102.69055">LEMON</tspan><tspan
+               sodipodi:role="line"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:0.45;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';fill:#ffff00;stroke-width:0.264583"
+               x="43.937439"
+               y="106.28888"
+               id="tspan42380">CINNAMON</tspan></text>
+        </g>
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+           x="50.167458"
+           y="35.491322"
+           id="text53438"><tspan
+             sodipodi:role="line"
+             id="tspan53436"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:1.05;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;text-anchor:middle;stroke-width:0.264583"
+             x="50.167458"
+             y="35.491322"
+             dx="0">SCENTED CANDLE</tspan><tspan
+             sodipodi:role="line"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.05;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;text-anchor:middle;stroke-width:0.264583"
+             x="50.167458"
+             y="46.603786"
+             id="tspan85822">KIT INSTRUCTIONS</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+           x="97.82486"
+           y="54.541203"
+           id="text105090"><tspan
+             sodipodi:role="line"
+             id="tspan105088"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.05;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:end;text-anchor:end;stroke-width:0.264583"
+             x="97.82486"
+             y="54.541203">1. FILL FRAGRANCE BOTTLE</tspan><tspan
+             sodipodi:role="line"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.05;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:end;text-anchor:end;stroke-width:0.264583"
+             x="97.82486"
+             y="58.986198"
+             id="tspan105094">WITH AROMAS (ANYTHING WORKS!</tspan><tspan
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.05;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:end;text-anchor:end;stroke-width:0.264583"
+             sodipodi:role="line"
+             id="tspan131776"
+             x="97.82486"
+             y="63.431194">TRY IT!)</tspan><tspan
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:0.35;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:end;text-anchor:end;stroke-width:0.264583"
+             sodipodi:role="line"
+             id="tspan157491"
+             x="97.82486"
+             y="66.394524">  </tspan><tspan
+             sodipodi:role="line"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.05;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:end;text-anchor:end;stroke-width:0.264583"
+             x="97.82486"
+             y="69.357857"
+             id="tspan105096">2. INSERT UP TO 3 FRAGANCES</tspan><tspan
+             sodipodi:role="line"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.05;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:end;text-anchor:end;stroke-width:0.264583"
+             x="97.82486"
+             y="73.802849"
+             id="tspan105098">INTO CANDLE MAKING KIT</tspan><tspan
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:0.35;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:end;text-anchor:end;stroke-width:0.264583"
+             sodipodi:role="line"
+             id="tspan149858"
+             x="97.82486"
+             y="76.766182"> </tspan><tspan
+             sodipodi:role="line"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.05;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:end;text-anchor:end;stroke-width:0.264583"
+             x="97.82486"
+             y="79.729515"
+             id="tspan136796">3. CHANGE THE NAME AND COLOR</tspan><tspan
+             sodipodi:role="line"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.05;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:end;text-anchor:end;stroke-width:0.264583"
+             x="97.82486"
+             y="84.174507"
+             id="tspan105102">OF YOUR CANDLE</tspan><tspan
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:0.35;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:end;text-anchor:end;stroke-width:0.264583"
+             sodipodi:role="line"
+             id="tspan160949"
+             x="97.82486"
+             y="87.13784">  </tspan><tspan
+             sodipodi:role="line"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.05;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:end;text-anchor:end;stroke-width:0.264583"
+             x="97.82486"
+             y="90.101173"
+             id="tspan138490">4. DISPENSE CANDLE</tspan><tspan
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:0.35;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:end;text-anchor:end;stroke-width:0.264583"
+             sodipodi:role="line"
+             id="tspan166097"
+             x="97.82486"
+             y="93.064499"> </tspan><tspan
+             sodipodi:role="line"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.05;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:end;text-anchor:end;stroke-width:0.264583"
+             x="97.82486"
+             y="96.027832"
+             id="tspan105106">5. LIGHT EM UP!!!</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+           x="14.019231"
+           y="127.21153"
+           id="text170441"><tspan
+             sodipodi:role="line"
+             id="tspan170439"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';stroke-width:0.264583"
+             x="14.019231"
+             y="127.21153">IT IS SO EASY!</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>
