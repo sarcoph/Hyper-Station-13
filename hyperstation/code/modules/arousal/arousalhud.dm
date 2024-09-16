@@ -53,6 +53,8 @@
 		if(Belly.inflatable)
 			dat	+= "<a href='byond://?src=[REF(src)];shrink_belly=1'>Deflate belly</A>"
 			dat	+=	"(Shrink your belly down a size)<BR>"
+			dat	+= "<a href='byond://?src=[REF(src)];expand_belly=1'>Inflate belly</A>"
+			dat	+=	"(Increase your belly up a size)<BR>"
 
 	if(user.pulling && !isnoncarbon(user.pulling)) // do not fuck animals
 		dat	+= "<a href='byond://?src=[REF(src)];climaxover=1'>Climax over [user.pulling]</A>" //you can cum on objects if you really want...
@@ -216,6 +218,9 @@
 	if(href_list["shrink_belly"])
 		H.shrink_belly(1)
 
+	if(href_list["expand_belly"])
+		H.expand_belly(1)
+
 	if(href_list["removecondom"])
 		H.menuremovecondom()
 
@@ -261,6 +266,12 @@
 		usr.put_in_hands(I)
 		O.equipment = null
 
+	if(href_list["removeequipmentlips"])
+		var/obj/item/organ/genital/lips/L = usr.getorganslot("lips")
+		var/obj/item/I = L.equipment
+		SEND_SIGNAL(I, "detach_genital_equipment",usr)
+		usr.put_in_hands(I)
+		L.equipment = null
 
 	if(href_list["omenu"])
 		usr << browse(null, "window=arousal") //closes the window

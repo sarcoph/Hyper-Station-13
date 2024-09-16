@@ -437,7 +437,7 @@
 	repeatable = TRUE
 	//property_weights = list("extended" = -1, "chaos" = 1)
 	occurances_max = 1
-	chaos_min = 1.8
+	chaos_min = 2.5 //Increased due to how big the station is
 
 /datum/dynamic_ruleset/event/carp_migration
 	name = "Carp Migration"
@@ -726,11 +726,23 @@
 	typepath = /datum/round_event/camera_failure
 	requirements = list(0,0,0,0,0,0,0,0,0,0)
 	high_population_requirement = 0
-	weight = 100
+	weight = 8
 	cost = 2
 	repeatable_weight_decrease = 2 //Slightly drop the weight each time it is called to keep the pool from getting too diluted as the round goes on.
 	repeatable = TRUE
 	occurances_max = 100 //Our rounds can go for a WHILE
+
+/datum/dynamic_ruleset/event/filler
+	name = "Filler"
+	typepath = /datum/round_event/filler
+	requirements = list(0,0,0,0,0,0,0,0,0,0)
+	high_population_requirement = 0
+	chaos_max = 3
+	weight = 9
+	cost = 1
+	repeatable_weight_decrease = 0
+	repeatable = TRUE
+	occurances_max = 250 //Testing with this number for now
 
 /datum/dynamic_ruleset/event/disease_outbreak
 	name = "Disease Outbreak"
@@ -771,8 +783,8 @@
 	typepath = /datum/round_event/mass_hallucination
 	requirements = list(0,0,0,0,0,0,0,0,0,0)
 	high_population_requirement = 0
-	weight = 4
-	cost = 2
+	weight = 1
+	cost = 4
 	repeatable_weight_decrease = 5
 	repeatable = TRUE
 	occurances_max = 2
@@ -809,7 +821,7 @@
 	requirements = list(101,101,0,0,0,0,0,0,0,0)
 	high_population_requirement = 0
 	weight = 5
-	cost = 2 //STOP ROLLING SO MUCH YOU MENACE
+	cost = 10 //STOP ROLLING SO MUCH YOU MENACE
 	repeatable_weight_decrease = 1
 
 /datum/dynamic_ruleset/event/shuttle_loan

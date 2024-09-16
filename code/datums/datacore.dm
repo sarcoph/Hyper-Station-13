@@ -89,7 +89,7 @@
 	if(foundrecord)
 		foundrecord.fields["rank"] = assignment
 
-/datum/datacore/proc/get_manifest(monochrome, OOC)
+/datum/datacore/proc/get_manifest(monochrome, OOC = FALSE)
 	var/list/heads = list()
 	var/list/sec = list()
 	var/list/eng = list()
@@ -143,6 +143,19 @@
 			department = 1
 		if(!department && !(name in heads))
 			misc[name] = rank
+
+	//If we're getting the manifest from out of the round, add borgs to it
+	if(OOC)
+		for(var/mob/living/silicon/S in GLOB.silicon_mobs)
+			var name = S.name
+			if(istype(S, /mob/living/silicon/robot))
+				var/mob/living/silicon/robot/R = S
+				if(!R.shell && (!R.hack_software || R.emagged)) //If they're not hacked except via emag. Also ensures no duplicates due to shells
+					bot[name] = "Station Cyborg"
+			else
+				if(istype(S, /mob/living/silicon/ai))
+					bot[name] = "Station AI"
+
 	if(heads.len > 0)
 		dat += "<tr><th colspan=3>Heads</th></tr>"
 		for(var/name in heads)

@@ -272,13 +272,6 @@
 	user.nextsoundemote = world.time + 7
 	playsound(user, 'modular_citadel/sound/voice/hiss.ogg', 50, 1, -1)
 
-/datum/emote/living/meow
-	key = "meow"
-	key_third_person = "mrowls"
-	message = "mrowls!"
-	emote_type = EMOTE_AUDIBLE
-	muzzle_ignore = FALSE
-	restraint_check = FALSE
 
 /datum/emote/living/cackle
 	key = "cackle"
@@ -296,6 +289,13 @@
 		playsound(user, 'modular_citadel/sound/voice/cackle_yeen.ogg', 50, 1, -1)
 	. = ..()
 
+/datum/emote/living/meow
+	key = "meow"
+	key_third_person = "mrowls"
+	message = "mrowls!"
+	emote_type = EMOTE_AUDIBLE
+	muzzle_ignore = FALSE
+	restraint_check = FALSE
 
 /datum/emote/living/meow/run_emote(mob/living/user, params)
 	if(!(. = ..()))
@@ -303,7 +303,8 @@
 	if(user.nextsoundemote >= world.time)
 		return
 	user.nextsoundemote = world.time + 7
-	playsound(user, 'modular_citadel/sound/voice/meow1.ogg', 50, 1, -1)
+	var/path = pick(list('modular_citadel/sound/voice/merowr.ogg', 'modular_citadel/sound/voice/meow1.ogg', 'modular_citadel/sound/voice/meow2.ogg', 'modular_citadel/sound/voice/meow3.ogg', 'modular_citadel/sound/voice/meow4.ogg'))
+	playsound(user, path, 50, 1, -1)
 
 /datum/emote/living/purr
 	key = "purr"
@@ -320,3 +321,147 @@
 		return
 	user.nextsoundemote = world.time + 7
 	playsound(user, 'modular_citadel/sound/voice/purr.ogg', 50, 1, -1)
+
+/datum/emote/living/xpchime
+	key = "xpchime"
+	key_third_person = "emits a soft chime."
+	message = "emits a soft chime."
+	emote_type = EMOTE_AUDIBLE
+	muzzle_ignore = FALSE
+	restraint_check = FALSE
+
+/datum/emote/living/xpchime/run_emote(mob/living/user, params)
+	if(!(. = ..()))
+		return
+	if(user.nextsoundemote >= world.time)
+		return
+	user.nextsoundemote = world.time + 7
+	playsound(user, 'modular_citadel/sound/voice/chime.ogg', 50, 1, -1)
+
+/datum/emote/living/chord
+	key = "chord"
+	key_third_person = "emits a sharp chord!"
+	message = "emits a sharp chord!"
+	emote_type = EMOTE_AUDIBLE
+	muzzle_ignore = FALSE
+	restraint_check = FALSE
+
+/datum/emote/living/chord/run_emote(mob/living/user, params)
+	if(!(. = ..()))
+		return
+	if(user.nextsoundemote >= world.time)
+		return
+	user.nextsoundemote = world.time + 7
+	playsound(user, 'modular_citadel/sound/voice/chord.ogg', 50, 1, -1)
+
+/datum/emote/living/tada
+	key = "tada"
+	key_third_person = "emits a triumphant tone!"
+	message = "emits a triumphant tone!"
+	emote_type = EMOTE_AUDIBLE
+	muzzle_ignore = FALSE
+	restraint_check = FALSE
+
+/datum/emote/living/tada/run_emote(mob/living/user, params)
+	if(!(. = ..()))
+		return
+	if(user.nextsoundemote >= world.time)
+		return
+	user.nextsoundemote = world.time + 7
+	playsound(user, 'modular_citadel/sound/voice/tada.ogg', 50, 1, -1)
+
+/datum/emote/living/error
+	key = "error"
+	key_third_person = "emits a error noise."
+	message = "emits a error noise."
+	emote_type = EMOTE_AUDIBLE
+	muzzle_ignore = FALSE
+	restraint_check = FALSE
+
+/datum/emote/living/error/run_emote(mob/living/user, params)
+	if(!(. = ..()))
+		return
+	if(user.nextsoundemote >= world.time)
+		return
+	user.nextsoundemote = world.time + 7
+	playsound(user, 'modular_citadel/sound/voice/xp_error.ogg', 50, 1, -1)
+
+/datum/emote/living/synthno
+	key = "no"
+	key_third_person = "emits a negative sad boop."
+	message = "emits a negative sad."
+	emote_type = EMOTE_AUDIBLE
+	muzzle_ignore = FALSE
+	restraint_check = FALSE
+
+/datum/emote/living/synthno/run_emote(mob/living/user, params)
+	if(!(. = ..()))
+		return
+	if(user.nextsoundemote >= world.time)
+		return
+	user.nextsoundemote = world.time + 7
+	playsound(user, 'modular_citadel/sound/voice/synth_no.ogg', 50, 1, -1)
+
+/datum/emote/living/synthyes
+	key = "yes"
+	key_third_person = "emits a positive boop."
+	message = "emits a positive boop."
+	emote_type = EMOTE_AUDIBLE
+	muzzle_ignore = FALSE
+	restraint_check = FALSE
+
+/datum/emote/living/synthyes/run_emote(mob/living/user, params)
+	if(!(. = ..()))
+		return
+	if(user.nextsoundemote >= world.time)
+		return
+	user.nextsoundemote = world.time + 7
+	playsound(user, 'modular_citadel/sound/voice/synth_yes.ogg', 50, 1, -1)
+
+/datum/emote/living/merowr
+	key = "merowr"
+	key_third_person = "merowrs!"
+	message = "merowrs!"
+	emote_type = EMOTE_AUDIBLE
+	muzzle_ignore = FALSE
+	restraint_check = FALSE
+
+/datum/emote/living/merowr/run_emote(mob/living/user, params)
+	if(!(. = ..()))
+		return
+	if(user.nextsoundemote >= world.time)
+		return
+	user.nextsoundemote = world.time + 7
+	playsound(user, 'modular_citadel/sound/voice/merowr.ogg', 50, 1, -1)
+
+/datum/emote/living/mothchitter
+	key = "mchitter"
+	key_third_person = "chitters!"
+	message = "chitters!"
+	emote_type = EMOTE_AUDIBLE
+	muzzle_ignore = FALSE
+	restraint_check = FALSE
+
+/datum/emote/living/mothchitter/run_emote(mob/living/user, params)
+	if(!(. = ..()))
+		return
+	if(user.nextsoundemote >= world.time)
+		return
+	user.nextsoundemote = world.time + 7
+	playsound(user, 'modular_citadel/sound/voice/mothchitter.ogg', 50, 1, -1)
+
+/datum/emote/living/sping
+	key = "sping"
+	key_third_person = "pings!"
+	message = "pings!"
+	emote_type = EMOTE_AUDIBLE
+	muzzle_ignore = FALSE
+	restraint_check = FALSE
+
+/datum/emote/living/sping/run_emote(mob/living/user, params)
+	if(!(. = ..()))
+		return
+	if(user.nextsoundemote >= world.time)
+		return
+	user.nextsoundemote = world.time + 7
+	playsound(user, 'modular_citadel/sound/voice/ping.ogg', 50, 1, -1)

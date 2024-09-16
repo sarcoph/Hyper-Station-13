@@ -691,7 +691,9 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
 			humans += H
 		person = pick(humans)
-		// Generate message
+
+
+	// Generate message
 	var/spans = list(person.speech_span)
 	var/chosen = !specific_message ? capitalize(pick(is_radio ? speak_messages : radio_messages)) : specific_message
 	chosen = replacetext(chosen, "%TARGETNAME%", target_name)
@@ -705,6 +707,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	if (target.client?.prefs.chat_on_map)
 		target.create_chat_message(person, understood_language, chosen, spans, 0)
 	to_chat(target, message)
+
 	qdel(src)
 
 /datum/hallucination/message
